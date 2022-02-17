@@ -1,0 +1,93 @@
+.packageCard{
+    background-color: #f0f0f0;
+    padding:10px;
+    margin: 15px 0px 0px 0px;
+    box-shadow: 0 0 7px rgba(0,0,0,0.3);
+    float: left;
+    border: 3px solid transparent;
+    box-sizing: border-box;
+}
+
+.offer {
+    border-style: solid;
+    border-width: 3px;
+    border-image: 
+      linear-gradient(
+        to left, 
+        red, 
+        rgba(0, 0, 0, 0)
+      ) 1 5%;
+  }
+
+  .offerTag{
+    background-image: url('off.png');
+    background-size:58px;
+    background-repeat: no-repeat;
+    background-attachment: relative;
+    background-position: right;
+    color:#fff;
+    -webkit-text-stroke: 0px #000;
+    line-height: 0.75;
+  }
+
+  .selectTopUpType{
+      background-color: white;
+      padding:10px;
+      font-size:large;
+      outline:none
+  }
+
+  .createOrder_title{
+    background-color: red;
+    background-image: linear-gradient(to right, darkblue, skyblue);
+    color: #fff;
+    width: 100%;
+    box-shadow: 0 0 7px rgba(0,0,0,0.3);
+  }
+
+  .inputField{
+    outline:none;
+    padding: 10px;
+    margin-bottom: 7px;
+    font-size: large;
+    border-radius: 5px;
+    border:1px solid gray;
+  }
+
+.capitalize {
+    text-transform: uppercase;
+}
+
+.firstLetterUpper {
+  text-transform: capitalize;
+}
+
+.enter_id_code{
+  background: #f0f0f0;
+  padding: 20px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.3);
+}
+
+.header{
+  background-color: #1940ff;
+  padding: 20px;
+  color: white;
+}
+
+.my_order_card{
+  background-color: #f0f0f0;
+  padding: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  font-size:large;
+  margin: 0px 10px 20px 10px;
+}
+
+.order_status{
+  color:white;
+  padding: 7px 8px 6px 8px;
+  border-radius: 8px;
+  font-weight:bold;
+  font-size: 14px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  white-space: nowrap;
+}
