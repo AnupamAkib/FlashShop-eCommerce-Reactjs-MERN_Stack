@@ -25,6 +25,13 @@ export default function MyOrderCard(props) {
     const [orderStatus, setOrderStatus] = useState(props.orderStatus)
 
     const [btnDisabled, setbtnDisabled] = useState(false);
+    const [showhide, setshowhide] = useState("Show")
+
+    let st = "";
+    for (let i = 0; i < gameLoginPassword.length; i++) {
+        st += "*";
+    }
+    const [gameLoginPassword_processed, setgameLoginPassword_processed] = useState(st)
 
     const changeThisOrderStatus = (e) => {
         let _status = e.target.value;
@@ -67,6 +74,17 @@ export default function MyOrderCard(props) {
 
     let notification = require('../../methods.js')
 
+    const passwordProcess = () => {
+        if (showhide == "Show") {
+            setshowhide("Hide");
+            setgameLoginPassword_processed(gameLoginPassword);
+        }
+        else {
+            setshowhide("Show");
+            setgameLoginPassword_processed(st);
+        }
+    }
+
     return (
         <div className='my_order_card'>
             <table border='0' width='100%'>
@@ -104,7 +122,7 @@ export default function MyOrderCard(props) {
 
                 <tr style={{ background: '#ffc9c9' }}>
                     <td align='center'><i className='fa fa-lock'></i></td>
-                    <td colSpan={2}>Password: {gameLoginPassword == "" ? "Not given" : gameLoginPassword}</td>
+                    <td colSpan={2}>Password: {gameLoginPassword == "" ? "Not given" : <font>{gameLoginPassword_processed} <button onClick={passwordProcess} style={{ border: '0px', background: 'transparent' }}>{showhide == "Show" ? <i className='fa fa-eye-slash'></i> : <i className='fa fa-eye'></i>}</button></font>}</td>
                 </tr>
 
                 <tr style={{ background: '#b5ffd5' }}>

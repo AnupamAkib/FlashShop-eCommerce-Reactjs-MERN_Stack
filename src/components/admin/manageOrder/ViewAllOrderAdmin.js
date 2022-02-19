@@ -6,15 +6,18 @@ import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useState } from 'react';
+import Button from '@mui/material/Button';
 
 export default function ViewAllOrderAdmin() {
-    const [searchStatus, setsearchStatus] = useState(localStorage.getItem("searchedStatus") ? localStorage.getItem("searchedStatus") : "ALL")
+    const [searchStatus, setsearchStatus] = useState(localStorage.getItem("searchedStatus") ? localStorage.getItem("searchedStatus") : "PENDING")
+
     const changeSearchStatus = (e) => {
         //setsearchStatus(e.target.value);
         localStorage.setItem("searchedStatus", e.target.value)
         window.location.reload();
         //console.log(e.target.value)
     }
+
     return (
         <div>
             <div className='container col-6'>
@@ -39,6 +42,7 @@ export default function ViewAllOrderAdmin() {
                 </div>
                 <AllOrderCard status={searchStatus} />
             </div>
+
         </div>
     )
 }
