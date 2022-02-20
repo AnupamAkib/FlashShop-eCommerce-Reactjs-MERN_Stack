@@ -6,8 +6,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { useConfirm } from "material-ui-confirm";
+
 
 export default function MyOrderCard(props) {
+    const confirm = useConfirm();
     let id = props._id;
     let customer_name = props.customer_name;
     let phone = props.phone;
@@ -23,7 +26,7 @@ export default function MyOrderCard(props) {
     let timeDate = props.timeDate;
 
     const [orderStatus, setOrderStatus] = useState(props.orderStatus)
-
+    const [opct, setOpct] = useState(1)
     const [btnDisabled, setbtnDisabled] = useState(false);
     const [showhide, setshowhide] = useState("Show")
 
@@ -85,8 +88,28 @@ export default function MyOrderCard(props) {
         }
     }
 
+    const deleteThisOrder = () => {
+        confirm({ description: `This order's information will be deleted permanently` })
+            .then(() => {
+                //console.log("yes")
+                axios.post('https://flash-shop-server.herokuapp.com/order/delete', {
+                    _id: id
+                })
+                    .then((response) => {
+                        setOpct(0.4)
+                        notification.msg("Delete Successfully!", "green", 2500);
+                    }, (error) => {
+                        //setbtnDisabled(false);
+                        notification.msg("Sorry, something went wrong", "red", 4000);
+                    });
+            })
+            .catch(() => {
+                console.log("Deletion cancelled.")
+            });
+    }
+
     return (
-        <div className='my_order_card'>
+        <div className='my_order_card' style={{ opacity: opct }}>
             <table border='0' width='100%'>
                 <tr>
                     <td width='30px' align='center'><i className='fa fa-user'></i></td>
@@ -134,24 +157,25 @@ export default function MyOrderCard(props) {
                     <td colSpan={2}>{timeDate}</td>
                 </tr>
             </table>
-            <center>
-                <FormControl variant='filled'>
-                    <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
-                    <Select
-                        value={orderStatus}
-                        onChange={changeThisOrderStatus}
-                        label="Status"
-                        disabled={btnDisabled}
-                    >
-                        <MenuItem value="PENDING">Pending</MenuItem>
-                        <MenuItem value="RECEIVED">Received</MenuItem>
-                        <MenuItem value="REJECTED">Rejected</MenuItem>
-                        <MenuItem value="CANCELLED">Cancelled</MenuItem>
-                    </Select>
-                </FormControl>
-                <a href={"tel:" + phone} style={{ paddingTop: '15px', paddingBottom: '15px' }} className='btn btn-primary'>Call Client</a>
-                <button style={{ paddingTop: '15px', paddingBottom: '15px' }} className='btn btn-danger'>Delete</button>
-            </center>
+            {opct == 1 ?
+                <center>
+                    <FormControl variant='filled'>
+                        <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
+                        <Select
+                            value={orderStatus}
+                            onChange={changeThisOrderStatus}
+                            label="Status"
+                            disabled={btnDisabled}
+                        >
+                            <MenuItem value="PENDING">Pending</MenuItem>
+                            <MenuItem value="RECEIVED">Received</MenuItem>
+                            <MenuItem value="REJECTED">Rejected</MenuItem>
+                            <MenuItem value="CANCELLED">Cancelled</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <a href={"tel:" + phone} style={{ paddingTop: '15px', paddingBottom: '15px' }} className='btn btn-primary'><i class="fa fa-phone" style={{ fontSize: '20px' }}></i> CALL</a>
+                    <button style={{ paddingTop: '15px', paddingBottom: '15px' }} className='btn btn-danger' onClick={deleteThisOrder}><i class="fa fa-trash-o" style={{ fontSize: '20px' }}></i> DEL</button>
+                </center> : ""}
         </div >
     )
 }

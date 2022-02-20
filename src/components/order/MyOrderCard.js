@@ -93,18 +93,14 @@ export default function MyOrderCard(props) {
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-clock-o'></i></td>
-                    <td>{timeDate}</td>
-                    <td rowSpan={1}>
-                        <center>
-                            {orderStatus == "PENDING" ?
-                                <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>
-                                    বাতিল করি
-                                </Button> : ""}
-                        </center>
-                    </td>
+                    <td colSpan={2}>{timeDate}</td>
                 </tr>
 
             </table>
+            {orderStatus == "PENDING" ?
+                <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>
+                    অর্ডার বাতিল করি
+                </Button> : ""}
         </div >
     )
 }

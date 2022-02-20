@@ -5,11 +5,27 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ViewAllOrderAdmin() {
+    const navigate = useNavigate();
     const [searchStatus, setsearchStatus] = useState(localStorage.getItem("searchedStatus") ? localStorage.getItem("searchedStatus") : "PENDING")
+
+    let notification = require('../.././methods.js')
+
+    useEffect(() => {
+        let auth = require('../authorization.js');
+        //console.log(auth.checkAdmin())
+        if (auth.checkAdmin() == false) {
+            notification.msg("You must login first", "red", 2500)
+            navigate('/admin')
+        }
+    }, [])
+
+
 
     const changeSearchStatus = (e) => {
         //setsearchStatus(e.target.value);
@@ -21,7 +37,7 @@ export default function ViewAllOrderAdmin() {
     return (
         <div>
             <div className='container col-6'>
-                <br /><h1 align='center'>All Orders</h1>
+                <h1 align='center'>All Orders</h1>
                 <div className='container col-8' style={{ marginBottom: '20px' }}>
                     <center>
                         <FormControl variant='filled' fullWidth>
@@ -32,10 +48,10 @@ export default function ViewAllOrderAdmin() {
                                 label="Search by Status"
                             >
                                 <MenuItem value="ALL">ALL</MenuItem>
-                                <MenuItem value="PENDING">PENDING</MenuItem>
-                                <MenuItem value="RECEIVED">RECEIVED</MenuItem>
-                                <MenuItem value="REJECTED">REJECTED</MenuItem>
-                                <MenuItem value="CANCELLED">CANCELLED</MenuItem>
+                                <MenuItem value="PENDING">PENDING </MenuItem>
+                                <MenuItem value="RECEIVED">RECEIVED </MenuItem>
+                                <MenuItem value="REJECTED">REJECTED </MenuItem>
+                                <MenuItem value="CANCELLED">CANCELLED </MenuItem>
                             </Select>
                         </FormControl>
                     </center>

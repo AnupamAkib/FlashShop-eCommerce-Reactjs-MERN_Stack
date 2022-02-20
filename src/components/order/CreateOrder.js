@@ -209,11 +209,12 @@ export default function CreateOrder() {
                                 <br />
                             </div>
                             <b>আপনি যে নাম্বার থেকে {paymentlogo} করেছেনঃ</b><br />
-                            <select style={{ padding: '10px', border: '1px solid gray', fontSize: 'large', borderRadius: '5px', outline: 'none' }} onChange={changePaymentMethod}>
+                            <select style={{ padding: '12px', border: '1px solid gray', fontSize: 'large', borderRadius: '5px', outline: 'none' }} onChange={changePaymentMethod}>
                                 <option value='bKash'>বিকাশ</option>
                                 <option value='Nagad'>নগদ</option>
                                 <option value='Rocket'>রকেট</option>
                             </select>
+
                             <input onChange={paymentNumberOnChange} type='number' placeholder={'Enter ' + paymentlogo + ' Number'} className='inputField' style={{ width: '175px' }} required /><br />
 
                             <br />

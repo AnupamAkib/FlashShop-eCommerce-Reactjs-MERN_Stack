@@ -2,8 +2,10 @@ import React from 'react'
 import './style.css'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
-export default function card(props) {
+export default function Card(props) {
+    const navigate = useNavigate();
     let diamond = props.diamond;
     let regularPrice = props.regularPrice;
     let discountPrice = props.discountPrice;
@@ -41,7 +43,7 @@ export default function card(props) {
             </table>
             <div style={{ textAlign: 'right' }} >
                 <Button
-                    component={Link} to={orderLink}
+                    onClick={() => { navigate(orderLink) }}
                     color="primary"
                     variant="contained"
                 ><b>ক্রয় করুন</b></Button>

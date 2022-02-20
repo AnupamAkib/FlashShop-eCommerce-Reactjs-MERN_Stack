@@ -22,7 +22,7 @@ export default function EnterLogin(props) {
     }
     return (
         <div className="container col-4 enter_id_code" align='center'>
-            <form action="" onSubmit={idCodeSetSubmit}>
+            <form onSubmit={idCodeSetSubmit}>
                 {props.quotes}<br />
                 <br />
 

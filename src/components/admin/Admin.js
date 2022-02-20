@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import data from './data.json'
 
 export default function Admin() {
     const navigate = useNavigate();
@@ -14,32 +15,31 @@ export default function Admin() {
     var md5 = require('md5');
     var notification = require('../methods.js');
 
+    useEffect(() => {
+        let auth = require('./authorization.js');
+        //console.log(auth.checkAdmin())
+        if (auth.checkAdmin() == true) {
+            navigate('/admin/viewOrder')
+        }
+    }, [])
+
+
     const loginSubmit = (e) => {
-        //console.log(Username);
-        //console.log(Password);
-        setdisabled(true)
-        axios.post('https://flash-shop-server.herokuapp.com/admin/loginInfo', {
-            username: Username,
-            password: md5(Password)
-        })
-            .then((response) => {
-                let ar = response.data;
-                if (ar.status == "failed") {
-                    setdisabled(false)
-                    notification.msg("Incorrect Username or Password", "red", 2000)
-                }
-                else {
-                    notification.msg("Login Successful", "green", 2000)
-                    let name = ar.name;
-                    //console.log(name);
-                    localStorage.setItem("u", Username);
-                    localStorage.setItem("p", md5(Password));
-                    localStorage.setItem("n", name);
-                    navigate('/admin/viewOrder')
-                }
-            }, (error) => {
-                notification.msg("Sorry, something wrong", "red", 4000);
-            });
+        let found = false;
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].user == Username && data[i].pass == md5(Password)) {
+                notification.msg("Login Successful", "green", 2000)
+                let name = data[i].fullname;
+                localStorage.setItem("u", Username);
+                localStorage.setItem("p", md5(Password));
+                localStorage.setItem("n", name);
+                found = true;
+                navigate('/admin/viewOrder')
+            }
+        }
+        if (!found) {
+            notification.msg("Incorrect Username or Password", "red", 2000)
+        }
 
         e.preventDefault();
     }

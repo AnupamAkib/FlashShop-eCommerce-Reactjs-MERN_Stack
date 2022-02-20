@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
+import { ConfirmProvider } from "material-ui-confirm";
+import { useNavigate } from 'react-router';
 
 export default function AllOrderCard(props) {
     let order_status = props.status;
@@ -31,7 +33,7 @@ export default function AllOrderCard(props) {
     let res = [];
     for (let i = 0; i < allOrder.length; i++) {
         if (allOrder[i].orderStatus == order_status || order_status == "ALL") {
-            res.push(<Card
+            res.push(<ConfirmProvider><Card
                 _id={allOrder[i]._id}
                 customer_name={allOrder[i].customer_name}
                 phone={allOrder[i].phone}
@@ -46,7 +48,7 @@ export default function AllOrderCard(props) {
                 paymentSenderNumber={allOrder[i].paymentSenderNumber}
                 timeDate={allOrder[i].timeDate}
                 orderStatus={allOrder[i].orderStatus}
-            />)
+            /></ConfirmProvider>)
         }
     }
 
