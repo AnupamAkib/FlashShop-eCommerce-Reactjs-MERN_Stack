@@ -1,7 +1,11 @@
 import React from 'react'
+import AllPackageCard from './AllPackageCard';
 
 export default function ViewPackage() {
     return (
-        <div>View package for editing and deleting</div>
+        <div>
+            <h1 align='center'>All Packages</h1>
+            <AllPackageCard />
+        </div>
     )
 }

@@ -95,3 +95,17 @@
   padding: 8px;
   z-index: 100;
 }
+
+.createPackageButton{
+  background-color: darkblue;
+  color:white;
+  border:0px;
+  position: fixed;
+  bottom:20px;
+  right:15px;
+  border-radius: 50px;
+  width:65px;
+  height: 65px;
+  font-size: 25px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+}
