@@ -97,7 +97,7 @@ export default function MyOrderCard(props) {
                 })
                     .then((response) => {
                         setOpct(0.4)
-                        notification.msg("Delete Successfully!", "green", 2500);
+                        notification.msg("Deleted Successfully!", "green", 2500);
                     }, (error) => {
                         //setbtnDisabled(false);
                         notification.msg("Sorry, something went wrong", "red", 4000);
@@ -179,16 +179,3 @@ export default function MyOrderCard(props) {
         </div >
     )
 }
-
-/*
-
-                <select onChange={changeThisOrderStatus} disabled={btnDisabled}>
-                    <option value="PENDING">PENDING</option>
-                    <option value="RECEIVED">RECEIVED</option>
-                    <option value="REJECTED">REJECTED</option>
-                    <option value="CANCELLED">CANCELLED</option>
-                </select>
-
-
-                
-*/

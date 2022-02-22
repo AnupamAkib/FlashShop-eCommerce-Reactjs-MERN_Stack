@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
+import { ConfirmProvider } from "material-ui-confirm";
 
 export default function AllPackageCard() {
     const navigate = useNavigate();
@@ -28,17 +29,19 @@ export default function AllPackageCard() {
     let res = [];
     for (let i = 0; i < AllPackage.length; i++) {
         res.push(
-            <PackageCard
+            <ConfirmProvider><PackageCard
                 id={AllPackage[i]._id}
                 diamond={AllPackage[i].diamond}
                 topUp_type={AllPackage[i].topUp_type}
                 discount={AllPackage[i].discountAmount}
-            />
+                regularPrice={AllPackage[i].regularPrice}
+                discountPrice={AllPackage[i].discountPrice}
+            /></ConfirmProvider>
         )
     }
     if (Loading) {
         return (
-            <div align="center">
+            <div align="center" style={{ paddingBottom: '40vh' }}>
                 <br /><br /><br />
                 <CircularProgress />
             </div>
@@ -46,7 +49,7 @@ export default function AllPackageCard() {
     }
     //res.reverse();
     return (
-        <div className='container'>
+        <div className='container col-6'>
             {res}
             <button onClick={createPackageAction} className='createPackageButton'><i class="fa fa-plus"></i></button>
         </div>

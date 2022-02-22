@@ -11,7 +11,7 @@
 .col-11 {width: 91.66%;}
 .col-12 {width: 100%;}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
     /* For mobile phones: */
     [class*="col-"] {
       width: 100%;

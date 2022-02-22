@@ -29,9 +29,10 @@ export default function Package(props) {
     }
     if (loading) {
         return (
-            <div align="center">
-                <br /><br /><br />
-                <CircularProgress />
+            <div align="center" style={{ paddingBottom: '40vh' }}>
+                <br /><br /><br /><br />
+                <CircularProgress /><br />
+                অপেক্ষা করুন
             </div>
         )
     }

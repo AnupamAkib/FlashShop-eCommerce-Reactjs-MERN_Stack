@@ -20,25 +20,26 @@ export default function Card(props) {
     let orderLink = "/order/" + id;
     return (
         <div className={classN}>
-            <table border='0' width='100%'>
+            {discountAmount ? <div className='packageTitle offer-title'>অফার প্যাকেজ</div> : <div className='packageTitle normal-title'>সাধারণ প্যাকেজ</div>}
+            <table border='0' width='100%' cellPadding={2}>
                 <tr>
-                    <td width='10'><img src='images/diamond.png' width='22px' /></td>
+                    <td width='10' align='center'><i className="fa fa-diamond"></i></td>
                     <td><font style={{ fontWeight: 'bold', fontSize: '19px' }}>{en2Bn.number(diamond)} ডায়ামন্ড</font></td>
                     {discountAmount != "0" ?
                         <td rowSpan={2} className='offerTag'>
-                            <div align='right' style={{ paddingRight: '13px' }}>
-                                <b>{en2Bn.number(discountAmount)} ৳</b><br />
-                                <font style={{ fontSize: '10px' }}>মূল্য ছাঁড়</font>
+                            <div align='center' style={{ paddingRight: '0px' }}>
+                                <b><font style={{ marginRight: '2px' }}>৳</font>{en2Bn.number(discountAmount)}</b><br />
+                                <font style={{ fontSize: '11px' }}>মূল্য ছাঁড়</font>
                             </div>
                         </td> : ""}
                 </tr>
                 <tr>
-                    <td width='10'><img src='images/taka.png' width='16px' /></td>
+                    <td width='10' align='center'><img src='images/taka.png' width='13px' /></td>
                     <td>{discountAmount != "0" ? <font><s>{en2Bn.number(regularPrice)} টাকা</s> <font color='green' style={{ fontWeight: 'bold' }}>{en2Bn.number(discountPrice)} টাকা</font></font> : <font color='green' style={{ fontWeight: 'bold' }}>{en2Bn.number(regularPrice)} টাকা</font>}</td>
                 </tr>
                 <tr>
-                    <td width='10'><img src='images/topup.png' width='20px' /></td>
-                    <td className='capitalize'>{topUp_type}</td>
+                    <td width='10' align='center'><i className="fa fa-cog"></i></td>
+                    <td className='capitalize' colSpan={2}><font size='4'>{topUp_type}</font></td>
                 </tr>
             </table>
             <div style={{ textAlign: 'right' }} >
@@ -46,6 +47,7 @@ export default function Card(props) {
                     onClick={() => { navigate(orderLink) }}
                     color="primary"
                     variant="contained"
+                    style={{ fontSize: '18px' }}
                 ><b>ক্রয় করুন</b></Button>
             </div>
         </div>

@@ -19,7 +19,7 @@ export default function Admin() {
         let auth = require('./authorization.js');
         //console.log(auth.checkAdmin())
         if (auth.checkAdmin() == true) {
-            navigate('/admin/viewOrder')
+            navigate('/admin/dashboard')
         }
     }, [])
 
@@ -34,7 +34,7 @@ export default function Admin() {
                 localStorage.setItem("p", md5(Password));
                 localStorage.setItem("n", name);
                 found = true;
-                navigate('/admin/viewOrder')
+                navigate('/admin/dashboard')
             }
         }
         if (!found) {
