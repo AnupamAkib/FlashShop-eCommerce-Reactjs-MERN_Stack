@@ -38,6 +38,7 @@ export default function MyOrderCard(props) {
 
     const changeThisOrderStatus = (e) => {
         let _status = e.target.value;
+        let previous_status = orderStatus;
         setbtnDisabled(true);
         axios.post('https://flash-shop-server.herokuapp.com/order/status', {
             _id: id,
@@ -46,6 +47,15 @@ export default function MyOrderCard(props) {
             .then((response) => {
                 setOrderStatus(_status);
                 setbtnDisabled(false);
+                let amount = 0;
+                if (previous_status == "PENDING" && _status == "RECEIVED") {
+                    amount = price;
+                }
+                else if (previous_status == "RECEIVED") {
+                    amount = price * -1;
+                }
+                axios.post('https://flash-shop-server.herokuapp.com/dashboard/increaseSell', { increaseAmount: amount })
+                    .then((re) => { }, (error) => { });
             }, (error) => {
                 setbtnDisabled(false);
                 notification.msg("Sorry, something wrong", "red", 4000);

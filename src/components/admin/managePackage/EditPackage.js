@@ -10,6 +10,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useParams } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Link } from 'react-router-dom';
+import Title from '../../title.js';
 
 export default function EditPackage() {
     const navigate = useNavigate();
@@ -22,12 +24,16 @@ export default function EditPackage() {
         }
     }, [])
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const { id } = useParams();
     //console.log(id)
-    const settings = require('../.././settings.js');
-    settings.fetch()
-    let idCodeUSD = settings.getUSD_idcode();
-    let idPasswordUSD = settings.getUSD_idpassword();
+    const [idCodeUSD, setidCodeUSD] = useState(0);
+    const [idPasswordUSD, setidPasswordUSD] = useState(0);
+
+
 
     const notification = require('../../methods.js')
 
@@ -50,14 +56,30 @@ export default function EditPackage() {
                 setDiamond(parseInt(ar.diamond));
                 setDiscount(parseInt(ar.discount));
                 settopUp_type(ar.topUp_type);
-                calculatePrice(ar.diamond, ar.discount, ar.topUp_type)
-                setLoading(false)
+
+                //useEffect(() => {
+                axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+                    //parameters
+                })
+                    .then((res) => {
+                        //console.log(response.data.result[0].takeNewOrder)
+                        setidCodeUSD(res.data.result[0].playerID_USD_Unit_per_hundredDiamond);
+                        setidPasswordUSD(res.data.result[0].gameLogin_USD_Unit_per_hundredDiamond);
+                        setLoading(false)
+                    }, (error) => {
+                        console.log(error);
+                    });
+                //}, [])
+
             }, (error) => {
                 console.log(error);
                 notification.msg("Sorry, something went wrong", "red", 2500);
             });
     }, [])
 
+    useEffect(() => {
+        calculatePrice(Diamond, Discount, topUp_type)
+    }, [Loading])
 
 
     const editPackageNow = (e) => {
@@ -121,12 +143,17 @@ export default function EditPackage() {
     }
 
     return (
-        <div className='container'>
-            <h1 align='center'>Edit Package</h1>
-            <div className='container col-5'>
+        <>
+            <Title title="Edit Package" />
+            <div className='container'>
 
-                {Loading ? <center><br /><br /><br /><br />
-                    <CircularProgress /><br />Please Wait<br /><br /><br /><br /><br /></center> :
+                <div className='container col-5'>
+
+                    {Loading ?
+                        <div className='hovered_loading'>
+                            <CircularProgress /><br />Please Wait
+                        </div>
+                        : ""}
                     <form onSubmit={editPackageNow}>
                         <TextField onChange={changeDiamond} id="filled-basic" label="Diamond Amount" variant="filled" type='number' value={Diamond} focused fullWidth required />
                         <FormControl variant='filled' fullWidth focused>
@@ -145,17 +172,17 @@ export default function EditPackage() {
                         <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth required />
 
                         <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "Save Changes"}</Button>
-                    </form>}
+                    </form>
 
-                <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
-                    <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
-                    <ul>
-                        <li>ID Code : {idCodeUSD} USD</li>
-                        <li>ID Password : {idPasswordUSD} USD</li>
-                    </ul>
-                    <a href='#'>Change Unit Price</a>
-                </div>
-            </div><br /><br />
-        </div>
+                    <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
+                        <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
+                        <ul>
+                            <li>ID Code : {idCodeUSD} USD</li>
+                            <li>ID Password : {idPasswordUSD} USD</li>
+                        </ul>
+                        <Link to='/admin/settings'>Change Unit Price</Link>
+                    </div>
+                </div><br /><br />
+            </div></>
     )
 }

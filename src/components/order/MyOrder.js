@@ -10,7 +10,9 @@ export default function MyOrder() {
     const [Loading, setLoading] = useState(true)
 
     let notification = require('../methods.js');
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     useEffect(() => {
         axios.post('https://flash-shop-server.herokuapp.com/order/myOrder', {
             playerID: pid

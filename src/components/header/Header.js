@@ -48,14 +48,14 @@ export default function Header() {
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">More</a>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="/admin"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Admin Login</font></Link></li>
+                                    <li><Link className="dropdown-item" to="/admin"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Admin Dashboard</font></Link></li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <div style={{ marginBottom: '75px' }}></div>
+            <div style={{ marginBottom: '58px' }}></div>
         </>
     )
 }

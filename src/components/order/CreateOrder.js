@@ -22,22 +22,46 @@ export default function CreateOrder() {
     const [PaymentNumber, setPaymentNumber] = useState("");
     const [Agree, setAgree] = useState(false);
     const [BtnDisabled, setBtnDisabled] = useState('')
-
     const [TotalOrder, setTotalOrder] = useState(0)
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    const [newOrder, setnewOrder] = useState(true);
+    //console.log(newOrder)
+
     useEffect(() => {
         axios.get('https://flash-shop-server.herokuapp.com/package/allPackages', {
 
         })
             .then((response) => {
+                //setnewOrder(setting.getTakeNewOrder());
+                axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+                    //parameters
+                })
+                    .then((res) => {
+                        //console.log(response.data.result[0].takeNewOrder)
+                        //return response.data.result[0].takeNewOrder;
+                        setnewOrder(res.data.result[0].takeNewOrder);
+                        if (res.data.result[0].takeNewOrder == true) {
+                            setloading(false)
+                        }
+                        else {
+                            setnewOrder(false);
+                        }
+
+                    }, (error) => {
+                        console.log(error);
+                    });
                 setAllPackage(response.data.result)
-                setloading(false)
+
             }, (error) => {
                 console.log(error);
             });
     }, [])
     //console.log(AllPackage)
 
-    let diamond, discountAmount, discountPrice, topUp_type, regularPrice;
+    let diamond = 0, discountAmount = 0, discountPrice = 0, topUp_type = "", regularPrice = 0;
     let found = false;
     for (let i = 0; i < AllPackage.length; i++) {
         if (AllPackage[i]._id == id) {
@@ -78,9 +102,9 @@ export default function CreateOrder() {
     const agreeOnChange = () => {
         setAgree(!Agree);
     }
+    let toast = require('../methods.js');
 
     const formOnSubmit = (e) => {
-        let toast = require('../methods.js');
         if (!Agree) {
             toast.msg("শর্তাবলী মেনে নিতে হবে", "red", 4000);
         }
@@ -110,6 +134,10 @@ export default function CreateOrder() {
                     localStorage.setItem("name", Name);
                     localStorage.setItem("id_code", IDCode);
                     navigate('/myOrder');
+                    //increase life-time order count
+                    axios.post('https://flash-shop-server.herokuapp.com/dashboard/increaseOrder')
+                        .then((re) => { }, (error) => { });
+
                 }, (error) => {
                     setBtnDisabled('');
                     toast.msg("Sorry, something wrong", "red", 4000);
@@ -128,32 +156,41 @@ export default function CreateOrder() {
         )
     }
 
-    if (loading) {
+    if (!newOrder) {
         return (
-            <div align="center">
-                <br /><br /><br />
-                <CircularProgress />
+            <div className='my_order_card' style={{ fontSize: '21px' }}>
+                <h1>Temporarily Closed</h1>
+                নতুন অর্ডার নেওয়া সাময়িকভাবে বন্ধ আছে। কিছুক্ষণ পর আবার চেষ্টা করুন।
+                পাশে থাকার জন্য ধন্যবাদ :)
             </div>
         )
     }
-    if (!found) {
+
+    if (!found && !loading) {
         return (
-            <div align='center' style={{ padding: '20px' }}>
+            <div align='center' style={{ padding: '20px', background: '#f0f0f0' }} className='container col-4'>
                 <br />
                 <h1>
                     দুঃখিত, এই প্যাকেজটি পাওয়া যায়নি
                 </h1>
                 <p>
-                    হয়ত আপনি ভুল ঠিকানায় প্রবেশ করেছেন অথবা এই প্যাকেজটি অ্যাডমিন এটি ডিলিট করে দিয়েছেন।
+                    হয়ত আপনি ভুল ঠিকানায় প্রবেশ করেছেন অথবা প্যাকেজটি অ্যাডমিন ডিলিট করে দিয়েছেন।
                 </p>
                 <b>Error Code: 404</b>
             </div>
         )
     }
 
+
+
     return (
         <div>
             <div className='createOrder_title'>
+                {loading ?
+                    <div className='hovered_loading'>
+                        <CircularProgress /><br />অপেক্ষা করুন
+                    </div>
+                    : ""}
                 <table className='container col-6' border='0' cellpadding={10}>
                     <tr>
                         <td width='10px'>
@@ -221,9 +258,9 @@ export default function CreateOrder() {
                             <div class="checkbox" style={{ fontSize: 'large', marginBottom: '10px' }}>
                                 <label><input onChange={agreeOnChange} type="checkbox" checked={Agree} /> আমি সকল শর্তাবলী মেনে নিচ্ছি</label>
                             </div>
-                            <Button type='submit' color="primary" variant="contained" disabled={BtnDisabled}>
+                            <Button type='submit' color="primary" variant="contained" disabled={BtnDisabled || loading}>
                                 <font style={{ padding: '0px 50px 0px 50px', fontSize: 'large' }}>
-                                    Submit
+                                    {loading ? "অপেক্ষা..." : "সাবমিট করুন"}
                                 </font>
                             </Button>
                         </center>
@@ -231,4 +268,6 @@ export default function CreateOrder() {
                 </div></div>
         </div >
     )
+
+
 }

@@ -24,7 +24,7 @@ export default function Card(props) {
             <table border='0' width='100%' cellPadding={2}>
                 <tr>
                     <td width='10' align='center'><i className="fa fa-diamond"></i></td>
-                    <td><font style={{ fontWeight: 'bold', fontSize: '19px' }}>{en2Bn.number(diamond)} ডায়ামন্ড</font></td>
+                    <td><font style={{ fontWeight: 'bold', fontSize: '23px' }}>{en2Bn.number(diamond)} ডায়ামন্ড</font></td>
                     {discountAmount != "0" ?
                         <td rowSpan={2} className='offerTag'>
                             <div align='center' style={{ paddingRight: '0px' }}>

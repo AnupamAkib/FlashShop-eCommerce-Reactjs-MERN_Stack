@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import Title from '../../title';
 
 export default function ViewAllOrderAdmin() {
     const navigate = useNavigate();
@@ -25,7 +26,9 @@ export default function ViewAllOrderAdmin() {
         }
     }, [])
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const changeSearchStatus = (e) => {
         //setsearchStatus(e.target.value);
@@ -36,8 +39,9 @@ export default function ViewAllOrderAdmin() {
 
     return (
         <div>
+            <Title title="All Orders" />
             <div className='container col-6'>
-                <h1 align='center'>All Orders</h1>
+
                 <div className='container col-8' style={{ marginBottom: '20px' }}>
                     <center>
                         <FormControl variant='filled' fullWidth>

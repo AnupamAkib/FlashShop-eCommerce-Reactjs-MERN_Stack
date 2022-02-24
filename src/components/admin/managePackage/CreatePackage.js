@@ -8,6 +8,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import { Link } from 'react-router-dom';
+import Title from '../../title.js';
 
 export default function CreatePackage() {
     const navigate = useNavigate();
@@ -20,11 +22,25 @@ export default function CreatePackage() {
         }
     }, [])
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
-    const settings = require('../.././settings.js');
-    settings.fetch()
-    let idCodeUSD = settings.getUSD_idcode();
-    let idPasswordUSD = settings.getUSD_idpassword();
+    const [idCodeUSD, setidCodeUSD] = useState(0);
+    const [idPasswordUSD, setidPasswordUSD] = useState(0);
+
+    useEffect(() => {
+        axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+            //parameters
+        })
+            .then((res) => {
+                //console.log(response.data.result[0].takeNewOrder)
+                setidCodeUSD(res.data.result[0].playerID_USD_Unit_per_hundredDiamond);
+                setidPasswordUSD(res.data.result[0].gameLogin_USD_Unit_per_hundredDiamond);
+            }, (error) => {
+                console.log(error);
+            });
+    }, [])
 
     const notification = require('../../methods.js')
     const [Diamond, setDiamond] = useState(0)
@@ -94,38 +110,40 @@ export default function CreatePackage() {
     }
 
     return (
-        <div className='container'>
-            <h1 align='center'>Create Package</h1>
-            <div className='container col-5'>
+        <>
+            <Title title="Create Package" />
+            <div className='container'>
+                <div className='container col-5'>
 
-                <form onSubmit={createPackageNow}>
-                    <TextField onChange={changeDiamond} id="filled-basic" label="Diamond Amount" variant="filled" type='number' fullWidth required />
-                    <FormControl variant='filled' fullWidth>
-                        <InputLabel id="demo-simple-select-helper-label">Select Top Up Type</InputLabel>
-                        <Select
-                            value={topUp_type}
-                            onChange={changeType}
-                            label="TopUp Type"
-                        >
-                            <MenuItem value="id code">ID Code</MenuItem>
-                            <MenuItem value="id password">ID Password</MenuItem>
-                        </Select>
-                    </FormControl>
+                    <form onSubmit={createPackageNow}>
+                        <TextField onChange={changeDiamond} id="filled-basic" label="Diamond Amount" variant="filled" type='number' fullWidth required />
+                        <FormControl variant='filled' fullWidth>
+                            <InputLabel id="demo-simple-select-helper-label">Select Top Up Type</InputLabel>
+                            <Select
+                                value={topUp_type}
+                                onChange={changeType}
+                                label="TopUp Type"
+                            >
+                                <MenuItem value="id code">ID Code</MenuItem>
+                                <MenuItem value="id password">ID Password</MenuItem>
+                            </Select>
+                        </FormControl>
 
-                    <TextField onChange={changeDiscount} id="filled-basic" label="Discount (in Taka)" variant="filled" type='number' value={Discount} fullWidth required />
-                    <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth required />
+                        <TextField onChange={changeDiscount} id="filled-basic" label="Discount (in Taka)" variant="filled" type='number' value={Discount} fullWidth required />
+                        <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth required />
 
-                    <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "CREATE"}</Button>
-                </form>
-                <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
-                    <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
-                    <ul>
-                        <li>ID Code : {idCodeUSD} USD</li>
-                        <li>ID Password : {idPasswordUSD} USD</li>
-                    </ul>
-                    <a href='#'>Change Unit Price</a>
-                </div>
-            </div><br /><br />
-        </div>
+                        <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "CREATE"}</Button>
+                    </form>
+                    <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
+                        <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
+                        <ul>
+                            <li>ID Code : {idCodeUSD} USD</li>
+                            <li>ID Password : {idPasswordUSD} USD</li>
+                        </ul>
+                        <Link to='/admin/settings'>Change Unit Price</Link>
+                    </div>
+                </div><br /><br />
+            </div>
+        </>
     )
 }
