@@ -3,10 +3,6 @@ import React from 'react'
 export default function Footer() {
     return (
         <>
-            <div className='contact_bottom' align='center'>
-                প্রয়োজনে যোগাযোগ করুন<br />
-                01770246754
-            </div>
             <div align='center' className='footer'>
                 <h1>FlashShop</h1>
                 version 1.2<hr />

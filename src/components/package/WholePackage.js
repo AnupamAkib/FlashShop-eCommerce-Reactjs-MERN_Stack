@@ -76,6 +76,10 @@ export default function WholePackage() {
 
                     <Package topUp_type={Type} />
                 </div>
+                <div className='contact_bottom' align='center'>
+                    প্রয়োজনে যোগাযোগ করুন<br />
+                    01770246754
+                </div>
             </div>
         </>
     )
