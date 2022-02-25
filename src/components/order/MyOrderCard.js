@@ -63,6 +63,21 @@ export default function MyOrderCard(props) {
         //console.log("cancelled")
     }
 
+    function isLetter(c) {
+        c = String(c);
+        //console.log(c)
+        return c.toLowerCase() != c.toUpperCase();
+    }
+
+    let packageName = "";
+    if (isLetter(diamond)) {
+        packageName = diamond;
+    }
+    else {
+        packageName = en2Bn.number(diamond) + " ডায়ামন্ড"
+    }
+
+
     return (
         <div className='my_order_card'>
             <table border='0' width='100%'>
@@ -77,7 +92,7 @@ export default function MyOrderCard(props) {
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-diamond'></i></td>
-                    <td><font color='darkblue'><b>{en2Bn.number(diamond)} ডায়ামন্ড</b></font></td>
+                    <td><font color='darkblue'><b>{packageName}</b></font></td>
                 </tr>
                 <tr>
                     <td align='center'><b>৳</b></td>

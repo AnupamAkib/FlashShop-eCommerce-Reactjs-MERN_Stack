@@ -3,13 +3,16 @@ import MyOrderCard from './MyOrderCard'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 
 export default function MyOrder() {
     let pid = localStorage.getItem("id_code");
     const [MyAllOrder, setMyAllOrder] = useState([]);
     const [Loading, setLoading] = useState(true)
-
     let notification = require('../methods.js');
+
+
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -57,6 +60,9 @@ export default function MyOrder() {
 
     orderCard.reverse();
 
+
+    const en2bn = require('../methods')
+
     if (Loading) {
         return (
             <div align="center" style={{ paddingBottom: '40vh' }}>
@@ -77,6 +83,10 @@ export default function MyOrder() {
 
     return (
         <>
+            <center>
+                <b>মোট অর্ডার: {en2bn.number(orderCard.length)} টি</b>
+                <hr />
+            </center>
             {orderCard}
         </>
     )

@@ -79,6 +79,7 @@ export default function Dashboard() {
                         <Link style={{ textDecoration: 'none' }} to='/admin/viewOrder'><div className='actionBtn'><i className='	fa fa-cubes'></i> Manage Orders</div></Link><br />
                         <Link style={{ textDecoration: 'none' }} to='/admin/package/view'><div className='actionBtn'><i className='fa fa-diamond'></i> View All Package</div></Link><br />
                         <Link style={{ textDecoration: 'none' }} to='/admin/package/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Create Package</div></Link><br />
+                        <Link style={{ textDecoration: 'none' }} to='/admin/package/special/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Create Special Package</div></Link><br />
                         <Link style={{ textDecoration: 'none' }} to='/admin/settings'><div className='actionBtn'><i className='fa fa-cogs'></i> Change settings</div></Link><br />
                     </div>
                 </center>

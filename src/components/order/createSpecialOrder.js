@@ -13,7 +13,6 @@ export default function CreateOrder() {
     const [AllPackage, setAllPackage] = useState([])
     const [paymentlogo, setPaymentLogo] = useState("bkash");
     const [loading, setloading] = useState(true);
-
     const [Name, setName] = useState(localStorage.getItem("name"));
     const [IDCode, setIDCode] = useState(localStorage.getItem("id_code"));
     const [LoginID, setLoginID] = useState("");
@@ -31,7 +30,7 @@ export default function CreateOrder() {
     //console.log(newOrder)
 
     useEffect(() => {
-        axios.get('https://flash-shop-server.herokuapp.com/package/allPackages', {
+        axios.post('https://flash-shop-server.herokuapp.com/package/special/getAll', {
 
         })
             .then((response) => {
@@ -61,16 +60,16 @@ export default function CreateOrder() {
     }, [])
     //console.log(AllPackage)
 
-    let diamond = 0, discountAmount = 0, discountPrice = 0, topUp_type = "", regularPrice = 0;
+    let diamond = "", discountAmount = 0, discountPrice = 0, topUp_type = "", regularPrice = 0;
     let found = false;
     for (let i = 0; i < AllPackage.length; i++) {
         if (AllPackage[i]._id == id) {
             found = true;
             diamond = AllPackage[i].diamond;
-            discountAmount = AllPackage[i].discountAmount;
-            discountPrice = AllPackage[i].discountPrice;
-            regularPrice = AllPackage[i].regularPrice;
+            discountAmount = AllPackage[i].discount_amount;
+            regularPrice = AllPackage[i].price;
             topUp_type = AllPackage[i].topUp_type;
+            discountPrice = regularPrice - discountAmount;
             break;
         }
     }
@@ -204,7 +203,7 @@ export default function CreateOrder() {
                         </td>
                         <td>
                             <div>
-                                <font style={{ fontSize: '25px', fontWeight: 'bold' }}>{en2Bn.number(diamond)} ডায়ামন্ড</font><br />
+                                <font style={{ fontSize: '25px', fontWeight: 'bold' }}>{diamond}</font><br />
                                 <font style={{ fontSize: '22px' }}>{regularPrice != discountPrice ? <font color='#dadada'><s>{en2Bn.number(regularPrice)} টাকা</s></font> : ""} {en2Bn.number(discountPrice)} টাকা</font>
                             </div>
                         </td>
@@ -218,8 +217,8 @@ export default function CreateOrder() {
                         <b>Top Up Type:</b><br />
                         <input type='text' value={topUp_type} className='inputField col-12 capitalize' readOnly /><br />
 
-                        <b>ডায়ামন্ডের পরিমানঃ</b><br />
-                        <input type='text' value={en2Bn.number(diamond) + " ডায়ামন্ড"} className='inputField col-12' readOnly /><br />
+                        <b>প্যাকেজঃ</b><br />
+                        <input type='text' value={diamond} className='inputField col-12' readOnly /><br />
 
                         <b>মূল্যঃ </b><font color='red'>{discountAmount != "0" ? discount : ""}</font><br />
                         <input type='text' value={en2Bn.number(discountPrice) + " টাকা"} className='inputField col-12' readOnly /><br />

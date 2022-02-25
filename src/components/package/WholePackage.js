@@ -46,15 +46,17 @@ export default function WholePackage() {
 
     return (
         <>
-            <div className='welcomeMsg container col-6'>
-                <h1 style={{ fontWeight: 'bold' }}>Welcome Gamer!</h1>
-                <p>
-                    Welcome to FlashShop. FlashShop is an online FreeFire Diamond Top Up service in BD!
-                    <br />
-                    This is very trusted and well managed service. You can pay through bKash, Nagad and Rocket here.
+            <div className='bgImg'>
+                <div className='welcomeMsg container col-6'>
+                    <h1 style={{ fontWeight: 'bold' }}>Welcome Gamers!</h1>
+                    <p>
+                        Welcome to FlashShop. FlashShop is an online FreeFire Diamond Top Up service in BD!
+                        <br />
+                        This is very trusted and well managed service. You can pay through bKash, Nagad and Rocket here.
 
-                    Scroll down to view our packages. Happy gaming! :)
-                </p>
+                        Scroll down to view our packages. Happy gaming! :)
+                    </p>
+                </div>
             </div>
             <div className='container'>
                 <div className='container col-8'>

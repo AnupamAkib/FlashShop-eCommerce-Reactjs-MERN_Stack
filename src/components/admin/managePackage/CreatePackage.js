@@ -137,8 +137,8 @@ export default function CreatePackage() {
                     <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
                         <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
                         <ul>
-                            <li>ID Code : {idCodeUSD} USD</li>
-                            <li>ID Password : {idPasswordUSD} USD</li>
+                            <li>ID Code : {idCodeUSD} BDT</li>
+                            <li>ID Password : {idPasswordUSD} BDT</li>
                         </ul>
                         <Link to='/admin/settings'>Change Unit Price</Link>
                     </div>

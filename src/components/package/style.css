@@ -21,10 +21,17 @@
 .normal-title{
   background-color: #008da0;
 }
+.special-Title{
+  background-color: rgba(190, 155, 0, 0.931);
+}
 
 .offer {
     background-color: skyblue;
     background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(66, 154, 255));
+}
+.special{
+    background-color: gold;
+    background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(255, 218, 148));
 }
 
   .offerTag{
@@ -171,13 +178,20 @@
 }
 
 .welcomeMsg{
-  background-color: rgba(0, 0, 0, 0.63);
-  background-image: linear-gradient(to right, rgb(22, 22, 22), rgb(80, 80, 80));
-  color: white;
+  color: #fff;
   padding: 20px 20px 15px 20px;
   margin-bottom: 15px;
   border-bottom: 5px solid rgb(216, 202, 0);
   font-size: small;
+  background-color: rgba(0, 0, 0, 0.589);
+}
+.bgImg{
+  background-image: url('/public/images/bg.jpg');
+  background-size:100%;
+  background-repeat: no-repeat;
+  background-attachment: relative;
+  background-position: center;
+  background-color: black;
 }
 
 .db_card{
@@ -206,4 +220,18 @@
 .actionBtn:hover{
   background-color: #2c76ff;
   color:white;
+}
+
+.contact_bottom{
+  padding: 20px 20px 20px 20px;
+  clear:both;
+  font-weight: bold;
+  font-size:22px;
+}
+
+.links a{
+  font-size: 22px;
+  text-decoration: none;
+  color: white;
+  padding: 7px;
 }

@@ -118,6 +118,12 @@ export default function MyOrderCard(props) {
             });
     }
 
+    function isLetter(c) {
+        c = String(c);
+        //console.log(c)
+        return c.toLowerCase() != c.toUpperCase();
+    }
+
     return (
         <div className='my_order_card' style={{ opacity: opct }}>
             <table border='0' width='100%'>
@@ -132,7 +138,7 @@ export default function MyOrderCard(props) {
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-diamond'></i></td>
-                    <td><font color='darkblue'><b>{diamond} Diamonds</b></font></td>
+                    <td><font color='darkblue'><b>{diamond} {isLetter(diamond) ? "" : "Diamonds"}</b></font></td>
                 </tr>
                 <tr>
                     <td align='center'><b>৳</b></td>
