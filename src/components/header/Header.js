@@ -38,7 +38,7 @@ export default function Header() {
                                 <Link className="nav-link" to="/conditions"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">শর্তাবলী</font></Link>
                             </li>
                             {LoginID ? <li className="nav-item dropdown" style={{ paddingRight: '30px' }}>
-                                <a className="nav-link dropdown-toggle firstLetterUpper" href="#" role="button" data-bs-toggle="dropdown">{localStorage.getItem("id_code")}</a>
+                                <a className="nav-link dropdown-toggle firstLetterUpper" href="#" role="button" data-bs-toggle="dropdown">{localStorage.getItem("name")}</a>
                                 <ul className="dropdown-menu">
                                     <li className="dropdown-item" >ID Code: <b>{localStorage.getItem("id_code")}</b></li>
                                     <li><a className="dropdown-item" onClick={user_logout}><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">লগ আউট</font></a></li>
@@ -49,6 +49,7 @@ export default function Header() {
                                 <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">More</a>
                                 <ul className="dropdown-menu">
                                     <li><Link className="dropdown-item" to="/admin"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Admin Dashboard</font></Link></li>
+                                    <li><Link className="dropdown-item" to="/about"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">About Site</font></Link></li>
                                 </ul>
                             </li>
                         </ul>

@@ -54,7 +54,7 @@ export default function AllOrderCard(props) {
 
     if (loading) {
         return (
-            <div align="center" style={{ paddingBottom: '40vh' }}>
+            <div align="center" style={{ paddingBottom: '30vh' }}>
                 <br /><br /><br />
                 <CircularProgress /><br />Please Wait
             </div>
@@ -105,7 +105,7 @@ export default function AllOrderCard(props) {
                 </div>
 
             </center>
-            {tmp.length ? tmp : <div align='center'><br /><br /><br /><h1>Nothing Found</h1><br /><br /><br /><br /></div>}
+            {tmp.length ? tmp : <div align='center'><br /><br /><div className='my_order_card'><h1>Nothing Found</h1>No one placed any order after you checked it last time! :(</div><br /><br /><br /><br /></div>}
 
             {order_status != "ALL" && res.length > totalCardInPage ?
                 <center>

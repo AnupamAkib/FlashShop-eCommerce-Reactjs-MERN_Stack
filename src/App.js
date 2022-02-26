@@ -5,6 +5,7 @@ import CreateOrder from './components/order/CreateOrder.js'
 import CreateSpecialOrder from './components/order/createSpecialOrder.js'
 import MyAllOrders from './components/order/MyAllOrders.js'
 import Header from './components/header/Header.js'
+import Navbar from './components/header/Navbar.js'
 import Footer from './components/footer/Footer.js'
 import Admin from './components/admin/Admin.js'
 import ViewAllOrderAdmin from './components/admin/manageOrder/ViewAllOrderAdmin.js'
@@ -17,13 +18,15 @@ import TermsConditions from './components/TermsConditions.js'
 import Contact from './components/Contact.js'
 import Dashboard from './components/admin/Dashboard.js'
 import Settings from './components/admin/Settings/Settings.js'
-
+import AboutSite from './components/about';
+import NotFound from './components/NotFound';
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path='/' element={<WholePackage />} />
+        <Route path='*' element={<NotFound />} />
         <Route path='/conditions' element={<TermsConditions />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/order/:id' element={<CreateOrder />} />
@@ -38,6 +41,7 @@ function App() {
         <Route path='/admin/package/create' element={<CreatePackage />} />
         <Route path='/admin/package/special/create' element={<CreateSpecialPackage />} />
         <Route path='/admin/settings' element={<Settings />} />
+        <Route path='/about' element={<AboutSite />} />
       </Routes>
       <Footer />
     </BrowserRouter>

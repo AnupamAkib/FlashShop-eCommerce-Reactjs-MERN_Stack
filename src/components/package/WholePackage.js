@@ -15,9 +15,10 @@ export default function WholePackage() {
         setType(topUp_type)
     }
 
-    /*let setting = require('../settings.js')
-    setting.fetch();
-    let fixed_notice = setting.getFixedNotification();*/
+    const backtoTop = () => {
+        window.scrollTo(0, 0)
+    }
+
     const [fixed_notice, setfixed_notice] = useState("");
     const [popUp_notification, setpopUp_notification] = useState("")
 
@@ -43,6 +44,21 @@ export default function WholePackage() {
         }
     }, [popUp_notification])
 
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        setScrollPosition(position);
+    };
+    //console.log(scrollPosition)
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <>
@@ -76,11 +92,19 @@ export default function WholePackage() {
 
                     <Package topUp_type={Type} />
                 </div>
+                <div style={{ clear: 'both' }}></div>
                 <div className='contact_bottom' align='center'>
                     প্রয়োজনে যোগাযোগ করুন<br />
                     01770246754
                 </div>
             </div>
+
+            {!scrollPosition ? "" :
+                <div className='backToTop' onClick={backtoTop} align='center'>
+                    <i className="fa fa-arrow-up"></i>
+                </div>
+            }
+
         </>
     )
 }

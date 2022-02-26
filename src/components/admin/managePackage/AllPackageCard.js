@@ -80,7 +80,7 @@ export default function AllPackageCard(props) {
 
     if (Loading || LoadingSp) {
         return (
-            <div align="center" style={{ paddingBottom: '40vh' }}>
+            <div align="center" style={{ paddingBottom: '30vh' }}>
                 <br /><br /><br />
                 <CircularProgress /><br />Please Wait
             </div>

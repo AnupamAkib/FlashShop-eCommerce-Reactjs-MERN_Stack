@@ -65,7 +65,7 @@ export default function MyOrder() {
 
     if (Loading) {
         return (
-            <div align="center" style={{ paddingBottom: '40vh' }}>
+            <div align="center" style={{ paddingBottom: '30vh' }}>
                 <br /><br /><br />
                 <CircularProgress /><br />
                 অপেক্ষা করুন

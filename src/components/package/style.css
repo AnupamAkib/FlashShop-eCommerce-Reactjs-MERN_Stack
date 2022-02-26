@@ -110,6 +110,12 @@
 .navbar{
   padding: 8px;
   z-index: 100;
+  background-color: rgb(26, 26, 26) !important;
+  box-shadow: 0 0 5px rgba(0,0,0,3);
+}
+
+.navbar-toggler{
+  border:0px;
 }
 
 .createPackageButton{
@@ -224,9 +230,12 @@
 
 .contact_bottom{
   padding: 20px 20px 20px 20px;
-  clear:both;
+  margin: 25px;
+  border-radius:10px;
   font-weight: bold;
   font-size:22px;
+  background: rgb(255, 248, 150);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .links a{
@@ -234,4 +243,28 @@
   text-decoration: none;
   color: white;
   padding: 7px;
+}
+
+.MuiToolbar-root{
+  position: fixed !important;
+  width:100%;
+  background-color: rgb(51, 51, 51);
+}
+
+.backToTop{
+  position: fixed;
+  bottom: 12px;
+  right: 15px;
+  padding:15px;
+  background-color: rgb(55, 57, 167);
+  color: white;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  box-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+
+.techbody{
+  background-color: white;
+  padding: 10px
 }
