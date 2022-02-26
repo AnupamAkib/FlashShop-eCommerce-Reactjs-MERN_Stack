@@ -1,11 +1,25 @@
 import React from 'react'
 import { useEffect } from 'react'
+import Title from './title'
 
 export default function Contact() {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
     return (
-        <div><br />Contact</div>
+        <div>
+            <Title title='যোগাযোগ' />
+            <div className='container'>
+                <div className='my_order_card'>
+                    <b>ফোনঃ </b>01770246754<br />
+                    <b>ইমেইলঃ </b>sample@email.com<br />
+                    <b>অফিসঃ </b>বসুন্ধরা লেন, পশ্চিম কাজিপাড়া, ঢাকা<br />
+                    <b>ফেসবুক পেইজঃ </b>
+                    <a href='#' target='_blank'>http://facebook.com/group/5465454</a>
+                    <br /><br />
+                    <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=west%20kazipara&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://123movies-to.org"></a></div></div>
+                </div>
+            </div>
+        </div>
     )
 }

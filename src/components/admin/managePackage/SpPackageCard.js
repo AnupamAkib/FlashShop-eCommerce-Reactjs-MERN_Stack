@@ -11,7 +11,7 @@ export default function PackageCard(props) {
     const notification = require('../.././methods.js')
     let diamond = props.diamond;
     let topUp_type = props.topUp_type;
-    let discount = props.discount;
+    let discount = parseInt(props.discount);
     let regularPrice = props.regularPrice;
     let discountPrice = props.discountPrice;
     let id = props.id
@@ -52,8 +52,8 @@ export default function PackageCard(props) {
                 <tbody>
                     <tr>
                         <td align='center' width='10px'><i className="fa fa-diamond"></i></td>
-                        <td><b>{diamond} {isLetter(diamond) ? "" : "Diamonds"}</b></td>
-                        <td rowSpan={2} align='center'>
+                        <td><b>{diamond}  {isLetter(diamond) ? "" : "Diamonds"}</b></td>
+                        <td rowSpan={2} align='right'>
                             {
                                 discount ?
                                     <s><font>{regularPrice} BDT<br /></font></s>

@@ -82,14 +82,14 @@ export default function AllPackageCard(props) {
         return (
             <div align="center" style={{ paddingBottom: '40vh' }}>
                 <br /><br /><br />
-                <CircularProgress />
+                <CircularProgress /><br />Please Wait
             </div>
         )
     }
     //res.reverse();
     return (
         <div className='container col-6'>
-            {res}
+            {res.length ? res : <h1 align='center'><br />Nothing Found<br /><br /><br /></h1>}
             <button onClick={createPackageAction} className='createPackageButton'><i class="fa fa-plus"></i></button>
         </div>
     )

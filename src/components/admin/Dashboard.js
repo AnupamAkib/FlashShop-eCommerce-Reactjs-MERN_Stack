@@ -54,7 +54,7 @@ export default function Dashboard() {
             <div className='container col-6'>
                 {loading ?
                     <div className='hovered_loading'>
-                        <CircularProgress /><br />অপেক্ষা করুন
+                        <CircularProgress /><br />Please Wait
                     </div>
                     : ""}
                 <table width='100%'>

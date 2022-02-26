@@ -56,7 +56,7 @@ export default function AllOrderCard(props) {
         return (
             <div align="center" style={{ paddingBottom: '40vh' }}>
                 <br /><br /><br />
-                <CircularProgress />
+                <CircularProgress /><br />Please Wait
             </div>
         )
     }
