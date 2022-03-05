@@ -89,7 +89,7 @@ export default function WholePackage() {
                         <a href='https://youtube.com/channel/UCmSvEjQTfeswiMyL0TE1B5A' target='_blank' className='social'>
                             <i style={{ color: '#c4302b' }} className='fa fa-youtube-play'></i>
                         </a>
-                        <a href='tel:01309093712' className='social'>
+                        <a href='tel:01309094712' className='social'>
                             <i style={{ color: 'green' }} className='fa fa-phone-square'></i>
                         </a>
                         <a href='mailto:golposadid02@gmail.com' className='social'>
@@ -110,7 +110,7 @@ export default function WholePackage() {
                 <div style={{ clear: 'both' }}></div>
                 <div className='contact_bottom' align='center'>
                     প্রয়োজনে যোগাযোগ করুন<br />
-                    01309093712
+                    01309094712
                 </div>
             </div>
 

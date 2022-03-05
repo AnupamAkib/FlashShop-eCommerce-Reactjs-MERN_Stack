@@ -11,7 +11,7 @@ export default function Contact() {
             <Title title='যোগাযোগ' />
             <div className='container'>
                 <div className='my_order_card'>
-                    <b>ফোনঃ </b>+8801309093712<br />
+                    <b>ফোনঃ </b>+8801309094712<br />
                     <b>ইমেইলঃ </b>golposadid02@gmail.com<br />
                     <b>অফিসঃ </b>বসুন্ধরা লেন, পশ্চিম কাজিপাড়া, ঢাকা<br />
                     <b>ফেসবুক: </b>
