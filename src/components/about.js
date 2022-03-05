@@ -1,7 +1,11 @@
 import React from 'react'
 import Title from './title'
+import { useEffect } from 'react'
 
 export default function AboutSite() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     return (
         <>
             <Title title='About This App' />

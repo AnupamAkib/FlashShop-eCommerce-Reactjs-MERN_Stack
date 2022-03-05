@@ -105,13 +105,18 @@ export default function AllOrderCard(props) {
                 </div>
 
             </center>
-            {tmp.length ? tmp : <div align='center'><br /><br /><div className='my_order_card'><h1>Nothing Found</h1>No one placed any order after you checked it last time! :(</div><br /><br /><br /><br /></div>}
+            {tmp.length ? tmp : <div align='center'><br /><br /><div className='my_order_card'><h1>Nothing Found</h1>
+                {order_status == 'PENDING' ? "No one placed any order since you checked it last time." : "Nothing found for order status \"" + order_status + "\""}
+            </div><br /><br /><br /><br /></div>}
 
             {order_status != "ALL" && res.length > totalCardInPage ?
-                <center>
-                    <Button onClick={changePrevPage} size="large" variant="contained" disabled={isPrevDisabled}>Prev</Button>
-                    <Button onClick={changeNextPage} size="large" variant="contained" disabled={isNextDisabled}>Next</Button>
-                </center> : ""}
+                <div style={{ paddingBottom: '20px' }}>
+                    <center>
+                        <Button onClick={changePrevPage} size="large" variant="contained" disabled={isPrevDisabled}><i style={{ fontSize: '25px', paddingRight: '10px' }} className='fa fa-angle-left'></i>Prev</Button>
+                        {" "}
+                        <Button onClick={changeNextPage} size="large" variant="contained" disabled={isNextDisabled}>Next<i style={{ fontSize: '25px', paddingLeft: '10px' }} className='fa fa-angle-right'></i></Button>
+                    </center>
+                </div> : ""}
         </div>
     )
 }

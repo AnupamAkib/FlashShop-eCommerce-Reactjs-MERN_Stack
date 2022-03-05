@@ -82,6 +82,21 @@ export default function WholePackage() {
                         </div>
                         : ""}
 
+                    <div align='center' className='getInTouch'>
+                        <a href='https://www.facebook.com/Flashytbd/' target='_blank' className='social'>
+                            <i style={{ color: '#4267b3' }} className='fa fa-facebook-square'></i>
+                        </a>
+                        <a href='https://youtube.com/channel/UCmSvEjQTfeswiMyL0TE1B5A' target='_blank' className='social'>
+                            <i style={{ color: '#c4302b' }} className='fa fa-youtube-play'></i>
+                        </a>
+                        <a href='tel:01309093712' className='social'>
+                            <i style={{ color: 'green' }} className='fa fa-phone-square'></i>
+                        </a>
+                        <a href='mailto:golposadid02@gmail.com' className='social'>
+                            <i style={{ color: '#bb0018' }} className='fa fa-envelope'></i>
+                        </a>
+                    </div>
+
                     <div align='center' style={{ marginTop: '15px' }}>
                         <select onChange={selectOnChange} className='selectTopUpType col-6'>
                             <option value="all">All</option>
@@ -95,7 +110,7 @@ export default function WholePackage() {
                 <div style={{ clear: 'both' }}></div>
                 <div className='contact_bottom' align='center'>
                     প্রয়োজনে যোগাযোগ করুন<br />
-                    01770246754
+                    01309093712
                 </div>
             </div>
 
