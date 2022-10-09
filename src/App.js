@@ -20,6 +20,7 @@ import Dashboard from './components/admin/Dashboard.js'
 import Settings from './components/admin/Settings/Settings.js'
 import AboutSite from './components/about';
 import NotFound from './components/NotFound';
+import Upload from './components/Upload';
 function App() {
   return (
     <BrowserRouter>
@@ -42,8 +43,8 @@ function App() {
         <Route path='/admin/package/special/create' element={<CreateSpecialPackage />} />
         <Route path='/admin/settings' element={<Settings />} />
         <Route path='/about' element={<AboutSite />} />
+        <Route path='/upload' element={<Upload />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }
