@@ -21,6 +21,7 @@ import Settings from './components/admin/Settings/Settings.js'
 import AboutSite from './components/about';
 import NotFound from './components/NotFound';
 import Upload from './components/Upload';
+import SendMail from './components/SendMail';
 function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ function App() {
         <Route path='/admin/settings' element={<Settings />} />
         <Route path='/about' element={<AboutSite />} />
         <Route path='/upload' element={<Upload />} />
+        <Route path='/sendmail' element={<SendMail />} />
       </Routes>
     </BrowserRouter>
   );
