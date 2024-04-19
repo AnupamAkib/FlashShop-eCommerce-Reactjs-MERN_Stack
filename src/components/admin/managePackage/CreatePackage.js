@@ -30,7 +30,7 @@ export default function CreatePackage() {
     const [idPasswordUSD, setidPasswordUSD] = useState(0);
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+        axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
             //parameters
         })
             .then((res) => {
@@ -45,28 +45,30 @@ export default function CreatePackage() {
     const notification = require('../../methods.js')
     const [Diamond, setDiamond] = useState(0)
     const [Discount, setDiscount] = useState(0)
-    const [topUp_type, settopUp_type] = useState('id code')
+    const [topUp_type, settopUp_type] = useState('Gadgets')
     const [disabled, setDisabled] = useState(false)
 
     const [PackagePrice, setPackagePrice] = useState(0);
+    const [productDescription, setProductDescription] = useState("");
+    const [productPrice, setProductPrice] = useState(0);
 
 
     const createPackageNow = (e) => {
-        if (parseInt(Diamond) < 50) {
-            notification.msg("Diamond amount should be greater than 50", "red", 2500);
-        }
-        else if (parseInt(Discount) > parseInt(Diamond)) {
-            notification.msg("Discount can't be greater than Diamond amount", "red", 2500);
+        if (parseInt(Discount) > parseInt(productPrice)) {
+            notification.msg("Discount can't be greater than product price", "red", 2500);
         }
         else if (PackagePrice == 0) {
             notification.msg("Invalid Information!", "red", 2500);
         }
         else {
-            setDisabled(true)
-            axios.post('https://flash-shop-server.herokuapp.com/package/create', {
+            setDisabled(true);
+            //if(Discount)
+            axios.post(process.env.REACT_APP_BACKEND+'package/create', {
                 //parameters
-                diamond: Diamond,
-                topUp_type: topUp_type,
+                title: Diamond,
+                description: productDescription,
+                price: productPrice,
+                category: topUp_type,
                 discount: Discount
             })
                 .then((response) => {
@@ -82,65 +84,49 @@ export default function CreatePackage() {
         e.preventDefault();
     }
 
-    const calculatePrice = (dmnd, disc, tt) => {
-        let price = 0;
-        price = parseInt(dmnd) / 100;
-        if (tt == 'id code') {
-            price *= idCodeUSD;
-        }
-        else {
-            price *= idPasswordUSD;
-        }
-        price = Math.floor(price);
-        price -= disc;
-        setPackagePrice(Math.max(price, 0))
-    }
-
-    const changeDiamond = (e) => {
-        setDiamond(e.target.value);
-        calculatePrice(e.target.value, Discount, topUp_type);
-    }
-    const changeDiscount = (e) => {
-        setDiscount(e.target.value);
-        calculatePrice(Diamond, e.target.value, topUp_type);
-    }
+    useEffect(() => {
+        if(Discount > 0 && Discount < productPrice) setPackagePrice(parseInt(productPrice)-parseInt(Discount));
+        else setPackagePrice(parseInt(productPrice));
+    },[productPrice, Discount]);
+   
     const changeType = (e) => {
         settopUp_type(e.target.value);
-        calculatePrice(Diamond, Discount, e.target.value);
     }
+
 
     return (
         <>
-            <Title title="Create Package" />
+            <Title title="Add New Product" />
             <div className='container'>
                 <div className='container col-5'>
 
                     <form onSubmit={createPackageNow}>
-                        <TextField onChange={changeDiamond} id="filled-basic" label="Diamond Amount" variant="filled" type='number' fullWidth required />
-                        <FormControl variant='filled' fullWidth>
-                            <InputLabel id="demo-simple-select-helper-label">Select Top Up Type</InputLabel>
+                        <TextField onChange={(e)=>setDiamond(e.target.value)} id="filled-basic" label="Product Title" variant="filled" type='text' fullWidth required />
+                        <TextField onChange={(e)=>setProductDescription(e.target.value)} id="filled-basic" label="Product Description" variant="filled" type='text' fullWidth required />
+                        <TextField onChange={(e)=>setProductPrice(e.target.value)} id="filled-basic" label="Product Price" variant="filled" type='number' fullWidth required />
+                        <FormControl variant='filled' fullWidth required>
+                            <InputLabel id="demo-simple-select-helper-label">Select Category</InputLabel>
                             <Select
                                 value={topUp_type}
                                 onChange={changeType}
-                                label="TopUp Type"
+                                label="Select Category"
                             >
-                                <MenuItem value="id code">ID Code</MenuItem>
-                                <MenuItem value="id password">ID Password</MenuItem>
+                                <MenuItem value="Technology">Technology</MenuItem>
+                                <MenuItem value="Gadgets">Gadgets</MenuItem>
+                                <MenuItem value="Men">Men</MenuItem>
+                                <MenuItem value="Women">Women</MenuItem>
+                                <MenuItem value="Kids">Kids</MenuItem>
+                                <MenuItem value="Others">Others</MenuItem>
                             </Select>
                         </FormControl>
 
-                        <TextField onChange={changeDiscount} id="filled-basic" label="Discount (in Taka)" variant="filled" type='number' value={Discount} fullWidth required />
+                        <TextField onChange={(e)=>setDiscount(e.target.value)} id="filled-basic" label="Discount (in Taka)" variant="filled" type='number' value={Discount} fullWidth required />
                         <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth required />
 
-                        <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "CREATE"}</Button>
+                        <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "ADD PRODUCT"}</Button>
                     </form>
-                    <div style={{ background: '#dedede', padding: '15px', marginTop: '20px' }}>
-                        <font style={{ fontSize: '19px', fontWeight: 'bold' }}>Unit Price / 100 Diamonds</font><br />
-                        <ul>
-                            <li>ID Code : {idCodeUSD} BDT</li>
-                            <li>ID Password : {idPasswordUSD} BDT</li>
-                        </ul>
-                        <Link to='/admin/settings'>Change Unit Price</Link>
+                    <div style={{ background: '#f0f0f0', padding: '15px', marginTop: '20px', color:"#b0b0b0" }}>
+                        Enter all product details & then click 'ADD PRODUCT' to add the product to the system
                     </div>
                 </div><br /><br />
             </div>

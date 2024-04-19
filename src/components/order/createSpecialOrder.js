@@ -30,12 +30,12 @@ export default function CreateOrder() {
     //console.log(newOrder)
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/package/special/getAll', {
+        axios.post(process.env.REACT_APP_BACKEND+'package/special/getAll', {
 
         })
             .then((response) => {
                 //setnewOrder(setting.getTakeNewOrder());
-                axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+                axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
                     //parameters
                 })
                     .then((res) => {
@@ -129,7 +129,7 @@ export default function CreateOrder() {
                 orderStatus: "PENDING"
             }
 
-            axios.post('https://flash-shop-server.herokuapp.com/order/placeOrder', JSON_data_req)
+            axios.post(process.env.REACT_APP_BACKEND+'order/placeOrder', JSON_data_req)
                 .then((response) => {
                     toast.msg("সফল হয়েছে। সব তথ্য ও পেমেন্ট ঠিক থাকলে আপনি অল্প কিছুক্ষণের মধ্যেই ডায়ামন্ড পেয়ে যাবেন। ধন্যবাদ", "green", 8000);
                     setBtnDisabled('');
@@ -137,7 +137,7 @@ export default function CreateOrder() {
                     localStorage.setItem("id_code", IDCode);
                     navigate('/myOrder');
                     //increase life-time order count
-                    axios.post('https://flash-shop-server.herokuapp.com/dashboard/increaseOrder')
+                    axios.post(process.env.REACT_APP_BACKEND+'dashboard/increaseOrder')
                         .then((re) => { }, (error) => { });
 
                 }, (error) => {

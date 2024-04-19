@@ -11,7 +11,7 @@ export default function TermsConditions() {
         window.scrollTo(0, 0)
     }, [])
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+        axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
             //parameters
         })
             .then((res) => {

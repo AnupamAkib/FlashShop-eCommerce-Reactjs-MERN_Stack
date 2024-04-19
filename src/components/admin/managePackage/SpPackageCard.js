@@ -23,7 +23,7 @@ export default function PackageCard(props) {
             .then(() => {
                 //console.log("yes")
                 setDisabled(true)
-                axios.post('https://flash-shop-server.herokuapp.com/package/special/delete', {
+                axios.post(process.env.REACT_APP_BACKEND+'package/special/delete', {
                     _id: id
                 })
                     .then((response) => {

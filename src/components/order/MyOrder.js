@@ -17,7 +17,7 @@ export default function MyOrder() {
         window.scrollTo(0, 0)
     }, [])
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/order/myOrder', {
+        axios.post(process.env.REACT_APP_BACKEND+'order/myOrder', {
             playerID: pid
         })
             .then((response) => {

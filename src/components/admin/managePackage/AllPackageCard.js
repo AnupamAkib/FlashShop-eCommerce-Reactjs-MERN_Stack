@@ -15,7 +15,7 @@ export default function AllPackageCard(props) {
     const [Loading, setLoading] = useState(true)
     const [LoadingSp, setLoadingSp] = useState(true)
     useEffect(() => {
-        axios.get('https://flash-shop-server.herokuapp.com/package/allPackages', {
+        axios.get(process.env.REACT_APP_BACKEND+'package/allPackages', {
             //parameters
         })
             .then((response) => {
@@ -26,7 +26,7 @@ export default function AllPackageCard(props) {
             });
     }, [])
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/package/special/getAll', {
+        axios.post(process.env.REACT_APP_BACKEND+'package/special/getAll', {
             //parameters
         })
             .then((response) => {
@@ -39,16 +39,37 @@ export default function AllPackageCard(props) {
     }, [])
 
     const createPackageAction = () => {
-        if (type == "Regular") {
-            navigate("/admin/package/create")
-        }
-        else {
-            navigate("/admin/package/special/create")
-        }
+        navigate("/admin/package/create")
     }
 
     let res = [];
-    if (type == "Special") {
+    for (let i = 0; i < AllPackage.length; i++) {
+        if(type == "All"){
+            res.push(
+                <ConfirmProvider><PackageCard
+                    id={AllPackage[i]._id}
+                    title={AllPackage[i].title}
+                    description={AllPackage[i].description}
+                    price={AllPackage[i].price}
+                    category={AllPackage[i].category}
+                    discount={AllPackage[i].discount}
+                /></ConfirmProvider>
+            );
+        }
+        else if(AllPackage[i].category == type){
+            res.push(
+                <ConfirmProvider><PackageCard
+                    id={AllPackage[i]._id}
+                    title={AllPackage[i].title}
+                    description={AllPackage[i].description}
+                    price={AllPackage[i].price}
+                    category={AllPackage[i].category}
+                    discount={AllPackage[i].discount}
+                /></ConfirmProvider>
+            );
+        }
+    }
+    /*if (type == "Special") {
         for (let i = 0; i < AllSpPackage.length; i++) {
             res.push(
                 <ConfirmProvider><SpPackageCard
@@ -75,7 +96,7 @@ export default function AllPackageCard(props) {
                 /></ConfirmProvider>
             )
         }
-    }
+    }*/
 
 
     if (Loading || LoadingSp) {

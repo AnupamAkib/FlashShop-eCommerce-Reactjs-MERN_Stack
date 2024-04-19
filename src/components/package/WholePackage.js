@@ -5,7 +5,7 @@ import axios from 'axios'
 import Title from '../title.js'
 
 export default function WholePackage() {
-    const [Type, setType] = useState("all")
+    const [Type, setType] = useState("All")
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -23,7 +23,7 @@ export default function WholePackage() {
     const [popUp_notification, setpopUp_notification] = useState("")
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+        axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
             //parameters
         })
             .then((res) => {
@@ -99,19 +99,19 @@ export default function WholePackage() {
 
                     <div align='center' style={{ marginTop: '15px' }}>
                         <select onChange={selectOnChange} className='selectTopUpType col-6'>
-                            <option value="all">All</option>
-                            <option value="id code">ID Code</option>
-                            <option value="id password">ID Password</option>
+                            <option value="All">All</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Gadgets">Gadgets</option>
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Others">Others</option>
                         </select>
                     </div>
 
                     <Package topUp_type={Type} />
                 </div>
                 <div style={{ clear: 'both' }}></div>
-                <div className='contact_bottom' align='center'>
-                    প্রয়োজনে যোগাযোগ করুন<br />
-                    01309094712
-                </div>
             </div>
 
             {!scrollPosition ? "" :

@@ -40,7 +40,7 @@ export default function MyOrderCard(props) {
         let _status = e.target.value;
         let previous_status = orderStatus;
         setbtnDisabled(true);
-        axios.post('https://flash-shop-server.herokuapp.com/order/status', {
+        axios.post(process.env.REACT_APP_BACKEND+'order/status', {
             _id: id,
             newStatus: _status
         })
@@ -54,7 +54,7 @@ export default function MyOrderCard(props) {
                 else if (previous_status == "RECEIVED") {
                     amount = price * -1;
                 }
-                axios.post('https://flash-shop-server.herokuapp.com/dashboard/increaseSell', { increaseAmount: amount })
+                axios.post(process.env.REACT_APP_BACKEND+'dashboard/increaseSell', { increaseAmount: amount })
                     .then((re) => { }, (error) => { });
             }, (error) => {
                 setbtnDisabled(false);
@@ -102,7 +102,7 @@ export default function MyOrderCard(props) {
         confirm({ description: `This order's information will be deleted permanently` })
             .then(() => {
                 //console.log("yes")
-                axios.post('https://flash-shop-server.herokuapp.com/order/delete', {
+                axios.post(process.env.REACT_APP_BACKEND+'order/delete', {
                     _id: id
                 })
                     .then((response) => {

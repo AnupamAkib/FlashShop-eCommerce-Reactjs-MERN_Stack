@@ -45,7 +45,7 @@ export default function EditPackage() {
         }
         else {
             setDisabled(true)
-            axios.post('https://flash-shop-server.herokuapp.com/package/special/create', {
+            axios.post(process.env.REACT_APP_BACKEND+'package/special/create', {
                 diamond: Diamond,
                 topUp_type: topUp_type,
                 price: PackagePrice,

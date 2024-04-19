@@ -10,7 +10,7 @@ import Title from '../../title';
 
 export default function ViewPackage() {
     const navigate = useNavigate();
-    const [Type, setType] = useState("Regular")
+    const [Type, setType] = useState("All")
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -25,19 +25,24 @@ export default function ViewPackage() {
     }, [])
     return (
         <div>
-            <Title title="All Packages" />
+            <Title title="All Products" />
 
             <div className='container'>
                 <div className='container col-6'>
                     <FormControl variant='filled' fullWidth>
-                        <InputLabel id="demo-simple-select-helper-label">Package Type</InputLabel>
+                        <InputLabel id="demo-simple-select-helper-label">Select Category</InputLabel>
                         <Select
                             value={Type}
                             onChange={(e) => { setType(e.target.value) }}
-                            label="Package Type"
+                            label="Select Category"
                         >
-                            <MenuItem value="Regular">Regular</MenuItem>
-                            <MenuItem value="Special">Special</MenuItem>
+                                <MenuItem value="All">All</MenuItem>
+                                <MenuItem value="Technology">Technology</MenuItem>
+                                <MenuItem value="Gadgets">Gadgets</MenuItem>
+                                <MenuItem value="Men">Men</MenuItem>
+                                <MenuItem value="Women">Women</MenuItem>
+                                <MenuItem value="Kids">Kids</MenuItem>
+                                <MenuItem value="Others">Others</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

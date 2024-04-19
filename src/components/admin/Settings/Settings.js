@@ -34,7 +34,7 @@ export default function Settings() {
     }, [])
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+        axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
             //parameters
         })
             .then((response) => {
@@ -56,7 +56,7 @@ export default function Settings() {
 
     const changeSettings = (e) => {
         setdisabledFlag(true)
-        axios.post('https://flash-shop-server.herokuapp.com/settings/edit', {
+        axios.post(process.env.REACT_APP_BACKEND+'settings/edit', {
             //parameters
             _id: id,
             popUp_notification: popUp_notification,

@@ -19,7 +19,7 @@ export default function AllOrderCard(props) {
     const [allOrder, setAllOrder] = useState([])
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.get('https://flash-shop-server.herokuapp.com/order/allOrder', {
+        axios.get(process.env.REACT_APP_BACKEND+'order/allOrder', {
             //parameters
         })
             .then((response) => {

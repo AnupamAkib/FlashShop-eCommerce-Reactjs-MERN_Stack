@@ -6,49 +6,59 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Card(props) {
     const navigate = useNavigate();
-    let diamond = props.diamond;
-    let regularPrice = props.regularPrice;
-    let discountPrice = props.discountPrice;
-    let discountAmount = props.discountAmount;
-    let topUp_type = props.topUp_type;
+    let title = props.title;
+    let description = props.description;
+    let price = props.price;
+    let discount = props.discount;
+    let category = props.category;
     let id = props.id;
     let classN = 'packageCard col-6 ';
-    if (discountAmount != "0") {
-        classN += 'offer';
-    }
+
     let en2Bn = require('../methods.js');
     let orderLink = "/order/" + id;
+
+    let desc = "";
+
+    for(let i=0; i<description.length; i++){
+        if(i > 80 && description[i] == ' '){
+            desc += "...";
+            break;
+        }
+        desc += description[i];
+    }
+
+
     return (
         <div className={classN}>
-            {discountAmount ? <div className='packageTitle offer-title'>অফার প্যাকেজ</div> : <div className='packageTitle normal-title'>সাধারণ প্যাকেজ</div>}
-            <table border='0' width='100%' cellPadding={2}>
-                <tr>
-                    <td width='10' align='center'><i className="fa fa-diamond"></i></td>
-                    <td><font style={{ fontWeight: 'bold', fontSize: '23px' }}>{en2Bn.number(diamond)} ডায়ামন্ড</font></td>
-                    {discountAmount != "0" ?
-                        <td rowSpan={2} className='offerTag'>
-                            <div align='center' style={{ paddingRight: '0px' }}>
-                                <b><font style={{ marginRight: '2px' }}>৳</font>{en2Bn.number(discountAmount)}</b><br />
-                                <font style={{ fontSize: '11px' }}>মূল্য ছাঁড়</font>
-                            </div>
-                        </td> : ""}
-                </tr>
-                <tr>
-                    <td width='10' align='center'><img src='images/taka.png' width='13px' /></td>
-                    <td>{discountAmount != "0" ? <font><s>{en2Bn.number(regularPrice)} টাকা</s> <font color='green' style={{ fontWeight: 'bold' }}>{en2Bn.number(discountPrice)} টাকা</font></font> : <font color='green' style={{ fontWeight: 'bold' }}>{en2Bn.number(regularPrice)} টাকা</font>}</td>
-                </tr>
-                <tr>
-                    <td width='10' align='center'><i className="fa fa-cog"></i></td>
-                    <td className='capitalize' colSpan={2}><font size='4'>{topUp_type}</font></td>
-                </tr>
+            <h2>{title}</h2><hr/>
+            <table width="100%" border='0' cellPadding={4} style={{ marginBottom: '8px' }}>
+                <tbody>
+                    <tr>
+                        <td align='center' width='10px'><i className="fa fa-diamond"></i></td>
+                        <td><b>{category}</b></td>
+                        <td rowSpan={2} align='right'>
+                            {
+                                discount ?
+                                    <s><font>{price} BDT<br /></font></s>
+                                    : ''
+                            }
+                            <font style={{ fontSize: '20px', fontWeight: 'bold', color: 'darkgreen' }}>{price-discount} BDT</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align='center'><i className="fa fa-cog"></i></td>
+                        <td colSpan={2}><font size="2">{discount} BDT Discount</font></td>
+                    </tr>
+                </tbody>
             </table>
+            <b>Description: </b>{desc} <br/>
             <div style={{ textAlign: 'right' }} >
                 <Button
                     onClick={() => { navigate(orderLink) }}
                     color="primary"
                     variant="contained"
                     style={{ fontSize: '18px' }}
-                ><b>ক্রয় করুন</b></Button>
+                ><b>Order</b></Button>
             </div>
         </div>
     )

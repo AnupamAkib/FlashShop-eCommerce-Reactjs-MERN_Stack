@@ -39,7 +39,7 @@ export default function EditPackage() {
     const [PackagePrice, setPackagePrice] = useState(0);
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/package/special/getAll', {
+        axios.post(process.env.REACT_APP_BACKEND+'package/special/getAll', {
             //parameters
             _id: id
         })
@@ -70,7 +70,7 @@ export default function EditPackage() {
             setDisabled(true)
             //edit request
             //console.log(Discount)
-            axios.post('https://flash-shop-server.herokuapp.com/package/special/edit', {
+            axios.post(process.env.REACT_APP_BACKEND+'package/special/edit', {
                 //parameters
                 _id: id,
                 diamond: Diamond,

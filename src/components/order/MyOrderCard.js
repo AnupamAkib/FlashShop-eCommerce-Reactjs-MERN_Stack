@@ -47,7 +47,7 @@ export default function MyOrderCard(props) {
     const cancelOrder = () => {
         //cancel this order
         setbtnDisabled('true');
-        axios.post('https://flash-shop-server.herokuapp.com/order/status', {
+        axios.post(process.env.REACT_APP_BACKEND+'order/status', {
             _id: id,
             newStatus: "CANCELLED"
         })

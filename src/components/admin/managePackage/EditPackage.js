@@ -46,7 +46,7 @@ export default function EditPackage() {
     const [PackagePrice, setPackagePrice] = useState(0);
 
     useEffect(() => {
-        axios.post('https://flash-shop-server.herokuapp.com/package/singlePackage', {
+        axios.post(process.env.REACT_APP_BACKEND+'package/singlePackage', {
             //parameters
             _id: id
         })
@@ -58,7 +58,7 @@ export default function EditPackage() {
                 settopUp_type(ar.topUp_type);
 
                 //useEffect(() => {
-                axios.post('https://flash-shop-server.herokuapp.com/settings/all', {
+                axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
                     //parameters
                 })
                     .then((res) => {
@@ -95,7 +95,7 @@ export default function EditPackage() {
         else {
             setDisabled(true)
             //edit request
-            axios.post('https://flash-shop-server.herokuapp.com/package/edit', {
+            axios.post(process.env.REACT_APP_BACKEND+'package/edit', {
                 //parameters
                 _id: id,
                 diamond: Diamond,

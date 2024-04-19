@@ -17,7 +17,7 @@ export default function SendMail() {
 
         setloading(true);
 
-        axios.post('https://flash-server.onrender.com/library/send_mail', {
+        axios.post(process.env.REACT_APP_BACKEND+'library/send_mail', {
             //parameters
             sendTo : To,
             subject : Subject,

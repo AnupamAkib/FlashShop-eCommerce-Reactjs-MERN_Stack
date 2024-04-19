@@ -28,7 +28,7 @@ export default function Dashboard() {
     const [successfulOrderCnt, setsuccessfulOrderCnt] = useState(0)
     const [loading, setloading] = useState(true)
     useEffect(() => {
-        axios.get('https://flash-shop-server.herokuapp.com/dashboard/all')
+        axios.get(process.env.REACT_APP_BACKEND+'dashboard/all')
             .then((response) => {
                 settotalLifeTimeOrder(response.data.result.totalOrder);
                 settotalLifeTimeSell(response.data.result.totalSell);
@@ -77,9 +77,10 @@ export default function Dashboard() {
 
                     <div style={{ clear: 'both' }} className='container'><br />
                         <Link style={{ textDecoration: 'none' }} to='/admin/viewOrder'><div className='actionBtn'><i className='	fa fa-cubes'></i> Manage Orders</div></Link><br />
-                        <Link style={{ textDecoration: 'none' }} to='/admin/package/view'><div className='actionBtn'><i className='fa fa-diamond'></i> View All Package</div></Link><br />
-                        <Link style={{ textDecoration: 'none' }} to='/admin/package/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Create Package</div></Link><br />
-                        <Link style={{ textDecoration: 'none' }} to='/admin/package/special/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Create Special Package</div></Link><br />
+                        <Link style={{ textDecoration: 'none' }} to='/admin/package/view'><div className='actionBtn'><i className='fa fa-diamond'></i> View All Products</div></Link><br />
+                        <Link style={{ textDecoration: 'none' }} to='/admin/package/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Add New Product</div></Link><br />
+                        {//}<Link style={{ textDecoration: 'none' }} to='/admin/package/special/create'><div className='actionBtn'><i className='fa fa-plus-square'></i> Create Offered Product</div></Link><br />
+                        }
                         <Link style={{ textDecoration: 'none' }} to='/admin/settings'><div className='actionBtn'><i className='fa fa-cogs'></i> Change settings</div></Link><br />
                     </div>
                 </center>
