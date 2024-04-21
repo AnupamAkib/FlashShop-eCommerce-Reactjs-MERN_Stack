@@ -121,7 +121,7 @@ export default function CreatePackage() {
                         </FormControl>
 
                         <TextField onChange={(e)=>setDiscount(e.target.value)} id="filled-basic" label="Discount (in Taka)" variant="filled" type='number' value={Discount} fullWidth required />
-                        <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth required />
+                        <TextField id="filled-basic" label="Package Price" variant="filled" type='text' InputProps={{ readOnly: true }} value={PackagePrice + " BDT"} fullWidth />
 
                         <Button type='submit' size="large" variant="contained" fullWidth disabled={disabled}>{disabled ? "PLEASE WAIT" : "ADD PRODUCT"}</Button>
                     </form>
