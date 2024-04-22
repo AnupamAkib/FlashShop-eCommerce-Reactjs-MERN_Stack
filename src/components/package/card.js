@@ -35,10 +35,10 @@ export default function Card(props) {
                 <tbody>
                     <tr>
                         <td align='center' width='10px'><i className="fa fa-diamond"></i></td>
-                        <td><b>{category}</b></td>
+                        <td>{category}</td>
                         <td rowSpan={2} align='right'>
                             {
-                                discount ?
+                                discount>0 ?
                                     <s><font>{price} BDT<br /></font></s>
                                     : ''
                             }

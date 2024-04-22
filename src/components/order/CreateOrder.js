@@ -22,10 +22,20 @@ export default function CreateOrder() {
     const [PaymentNumber, setPaymentNumber] = useState("");
     const [Agree, setAgree] = useState(false);
     const [BtnDisabled, setBtnDisabled] = useState('')
-    const [TotalOrder, setTotalOrder] = useState(0)
+    const [TotalOrder, setTotalOrder] = useState(0);
+
+    const [quantity, setQuantity] = useState(1);
+    const [shippingAddress, setShippingAddress] = useState("");
+    const [totalPay, setTotalPay] = useState(0);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    useEffect(() => {
+        //here 
+        setTotalPay(quantity*price);
+    }, quantity);
 
     const [newOrder, setnewOrder] = useState(true);
     //console.log(newOrder)
@@ -61,7 +71,7 @@ export default function CreateOrder() {
     }, [])
     //console.log(AllPackage)
 
-    let title, description, discount, price, category;
+    let title, description, discount=0, price=0, category;
     let found = false;
     for (let i = 0; i < AllPackage.length; i++) {
         if (AllPackage[i]._id == id) {
@@ -71,6 +81,7 @@ export default function CreateOrder() {
             price = AllPackage[i].price;
             discount = AllPackage[i].discount;
             category = AllPackage[i].category;
+            //setTotalPay(AllPackage[i].price);
             break;
         }
     }
@@ -117,7 +128,7 @@ export default function CreateOrder() {
 
             axios.post(process.env.REACT_APP_BACKEND+'order/placeOrder', JSON_data_req)
                 .then((response) => {
-                    toast.msg("সফল হয়েছে। সব তথ্য ও পেমেন্ট ঠিক থাকলে আপনি অল্প কিছুক্ষণের মধ্যেই ডায়ামন্ড পেয়ে যাবেন। ধন্যবাদ", "green", 8000);
+                    toast.msg("Order successfully placed! You can see order status from 'My Order'", "green", 5000);
                     setBtnDisabled('');
                     localStorage.setItem("name", Name);
                     localStorage.setItem("phone", IDCode);
@@ -177,22 +188,11 @@ export default function CreateOrder() {
                         <CircularProgress /><br />Please Wait
                     </div>
                     : ""}
-                <table className='container col-6' border='0' cellpadding={10}>
-                    <tr>
-                        <td width='10px'>
-                            <div>
-                                <img src='/images/diamond.png' width='60' />
-                            </div>
-
-                        </td>
-                        <td>
-                            <div>
+                
+                            <div className="container" style={{padding:"12px"}}>
                                 <font style={{ fontSize: '25px', fontWeight: 'bold' }}>{title}</font><br />
-                                <font style={{ fontSize: '22px' }}>{price} BDT</font>
+                                <font style={{ fontSize: '22px' }}>{discount>0? <font size="4"><s>{price} BDT </s></font> : ""} {price-discount} BDT</font>
                             </div>
-                        </td>
-                    </tr>
-                </table>
             </div>
 
             <div className='container' style={{ marginTop: '15px', marginBottom: '15px' }}>
@@ -202,14 +202,23 @@ export default function CreateOrder() {
                         <input type='text' value={category} className='inputField col-12 capitalize' readOnly /><br />
 
 
-                        <b>Price </b><font color='red'>{discount != "0" ? discount : ""}</font><br />
-                        <input type='text' value={price} className='inputField col-12' readOnly /><br />
+                        <b>Total Payable </b><br />
+                        <input type='text' value={totalPay} className='inputField col-12' readOnly /><br />
+
+                        <b>Quantity </b><br />
+                        <input type='number' value={quantity} className='inputField' style={{width:"60%"}} readOnly/>
+                        <button type="button" onClick={()=>setQuantity(quantity+1)} style={{width:"20%", padding:"5px", fontSize:"22px", fontWeight:"bold", border:"1px solid gray"}}>+</button>
+                        <button type="button" onClick={()=>setQuantity((quantity-1)==0? 1 : quantity-1)} style={{width:"20%", padding:"5px", fontSize:"22px", fontWeight:"bold", border:"1px solid gray"}}>-</button>
+                        <br />
 
                         <b>Your Name</b><br />
-                        <input onChange={nameOnChange} type='text' placeholder='Enter Your Name' className='inputField col-12' value={localStorage.getItem('name')} required /><br />
+                        <input onChange={nameOnChange} type='text' placeholder='Enter Your Name' className='inputField col-12' value={Name} required /><br />
+
+                        <b>Shipping Address</b><br />
+                        <input onChange={(e)=>setShippingAddress(e.target.value)} type='text' placeholder='Enter Shipping Address' className='inputField col-12' required /><br />
 
                         <b>Your Phone Number: </b><br />
-                        <input type='text' value={localStorage.getItem('phone')} placeholder='Enter Your Phone Number' className='inputField col-12' required readOnly /><br />
+                        <input type='text' value={localStorage.getItem('phone')} placeholder='Enter Your Phone Number' className='inputField col-12' readOnly required /><br />
 
                         <b>Payment Information:</b><br />
                         <center><img src={"/images/" + paymentlogo + ".png"} width='120' /><br />
@@ -226,7 +235,7 @@ export default function CreateOrder() {
                                 <option value='Rocket'>Rocket</option>
                             </select>
 
-                            <input onChange={paymentNumberOnChange} type='number' placeholder={'Enter ' + paymentlogo + ' Number'} className='inputField' style={{ width: '175px' }} required /><br />
+                            <input onChange={paymentNumberOnChange} type='text' placeholder={'Enter ' + paymentlogo + ' Tnx ID'} className='inputField' style={{ width: '175px' }} required /><br />
 
                             <br />
                             <div class="checkbox" style={{ fontSize: 'large', marginBottom: '10px' }}>
