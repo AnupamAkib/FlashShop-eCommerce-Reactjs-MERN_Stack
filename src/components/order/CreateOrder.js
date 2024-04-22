@@ -28,33 +28,49 @@ export default function CreateOrder() {
     const [shippingAddress, setShippingAddress] = useState("");
     const [totalPay, setTotalPay] = useState(0);
 
+    const [found, setFound] = useState(false);
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(0);
+    const [discount, setDiscount] = useState(0);
+    const [category, setCategory] = useState("");
+
     useEffect(() => {
         window.scrollTo(0, 0)
+        setPhone(localStorage.getItem('phone'));
     }, [])
 
     useEffect(() => {
         //here 
         setTotalPay(quantity*price);
-    }, quantity);
+    }, quantity, price);
 
     const [newOrder, setnewOrder] = useState(true);
     //console.log(newOrder)
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACKEND+'package/allPackages', {
-
+        axios.post(process.env.REACT_APP_BACKEND+'package/singlePackage', {
+            _id : id
         })
             .then((response) => {
                 //setnewOrder(setting.getTakeNewOrder());
+                const data = response.data.result[0];
                 axios.post(process.env.REACT_APP_BACKEND+'settings/all', {
                     //parameters
                 })
                     .then((res) => {
-                        //console.log(response.data.result[0].takeNewOrder)
+                        console.log(response.data.result)
                         //return response.data.result[0].takeNewOrder;
                         setnewOrder(res.data.result[0].takeNewOrder);
                         if (res.data.result[0].takeNewOrder == true) {
-                            setloading(false)
+                            setloading(false);
+
+                            setFound(true);
+                            setTitle(data.title);
+                            setDescription(data.description);
+                            setPrice(data.price);
+                            setDiscount(data.discount);
+                            setCategory(data.category);
                         }
                         else {
                             setnewOrder(false);
@@ -71,20 +87,20 @@ export default function CreateOrder() {
     }, [])
     //console.log(AllPackage)
 
-    let title, description, discount=0, price=0, category;
-    let found = false;
-    for (let i = 0; i < AllPackage.length; i++) {
-        if (AllPackage[i]._id == id) {
-            found = true;
-            title = AllPackage[i].title;
-            description = AllPackage[i].description;
-            price = AllPackage[i].price;
-            discount = AllPackage[i].discount;
-            category = AllPackage[i].category;
-            //setTotalPay(AllPackage[i].price);
-            break;
-        }
-    }
+    // let title, description, discount=0, price=0, category;
+    // let found = false;
+    // for (let i = 0; i < AllPackage.length; i++) {
+    //     if (AllPackage[i]._id == id) {
+    //         found = true;
+    //         title = AllPackage[i].title;
+    //         description = AllPackage[i].description;
+    //         price = AllPackage[i].price;
+    //         discount = AllPackage[i].discount;
+    //         category = AllPackage[i].category;
+    //         //setTotalPay(AllPackage[i].price);
+    //         break;
+    //     }
+    // }
 
     let en2Bn = require('../methods.js');
 
@@ -203,7 +219,7 @@ export default function CreateOrder() {
 
 
                         <b>Total Payable </b><br />
-                        <input type='text' value={totalPay} className='inputField col-12' readOnly /><br />
+                        <input type='text' value={((price-discount)*quantity)+" BDT"} className='inputField col-12' readOnly /><br />
 
                         <b>Quantity </b><br />
                         <input type='number' value={quantity} className='inputField' style={{width:"60%"}} readOnly/>
@@ -218,7 +234,7 @@ export default function CreateOrder() {
                         <input onChange={(e)=>setShippingAddress(e.target.value)} type='text' placeholder='Enter Shipping Address' className='inputField col-12' required /><br />
 
                         <b>Your Phone Number: </b><br />
-                        <input type='text' value={localStorage.getItem('phone')} placeholder='Enter Your Phone Number' className='inputField col-12' readOnly required /><br />
+                        <input type='text' value={Phone} placeholder='Enter Your Phone Number' className='inputField col-12' readOnly required /><br />
 
                         <b>Payment Information:</b><br />
                         <center><img src={"/images/" + paymentlogo + ".png"} width='120' /><br />
