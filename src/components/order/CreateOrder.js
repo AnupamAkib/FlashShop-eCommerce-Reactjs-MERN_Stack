@@ -15,7 +15,6 @@ export default function CreateOrder() {
     const [loading, setloading] = useState(true);
 
     const [Name, setName] = useState(localStorage.getItem("name"));
-    const [IDCode, setIDCode] = useState(localStorage.getItem("id_code"));
     const [LoginID, setLoginID] = useState("");
     const [LoginPass, setLoginPass] = useState("");
     const [Phone, setPhone] = useState("");
@@ -134,12 +133,15 @@ export default function CreateOrder() {
                 phone: Phone,
                 title: title,
                 price: price,
+                totalPay: totalPay,
                 category: category,
                 discount: discount,
                 paymentMethod: paymentlogo,
                 transactionID: PaymentNumber,
                 timeDate: dateTime.todaysDateTime(),
-                orderStatus: "PENDING"
+                orderStatus: "PENDING",
+                quantity: quantity,
+                shippingAddress : shippingAddress
             }
 
             axios.post(process.env.REACT_APP_BACKEND+'order/placeOrder', JSON_data_req)
@@ -147,7 +149,7 @@ export default function CreateOrder() {
                     toast.msg("Order successfully placed! You can see order status from 'My Order'", "green", 5000);
                     setBtnDisabled('');
                     localStorage.setItem("name", Name);
-                    localStorage.setItem("phone", IDCode);
+                    localStorage.setItem("phone", Phone);
                     navigate('/myOrder');
                     //increase life-time order count
                     axios.post(process.env.REACT_APP_BACKEND+'dashboard/increaseOrder')
@@ -164,11 +166,11 @@ export default function CreateOrder() {
     }
 
 
-    //if (!IDCode) {
-        //return (//<>fu</>
-          //  <EnterLogin quotes="ডায়ামন্ড কিনতে আপনার নাম ও গেমের ID Code টি লিখে 'CONTINUE' বাটনে টাচ/ক্লিক করুন। তারপর আপনি এই প্যাকেজ সম্পর্কে বিস্তারিত দেখতে পাবেন ও কিনতে পারবেন।" />
-        //)
-   // }
+    if (!Name || Name=="") {
+        return (//<>fu</>
+            <EnterLogin quotes="Please provide your login information & click on 'Continue' to order the product. " />
+        )
+    }
 
     if (!newOrder) {
         return (

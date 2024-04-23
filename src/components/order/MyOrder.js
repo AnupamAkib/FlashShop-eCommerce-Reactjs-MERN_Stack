@@ -6,7 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 
 export default function MyOrder() {
-    let pid = localStorage.getItem("id_code");
+    let pid = localStorage.getItem("phone");
     const [MyAllOrder, setMyAllOrder] = useState([]);
     const [Loading, setLoading] = useState(true)
     let notification = require('../methods.js');
@@ -18,15 +18,16 @@ export default function MyOrder() {
     }, [])
     useEffect(() => {
         axios.post(process.env.REACT_APP_BACKEND+'order/myOrder', {
-            playerID: pid
+            phone: pid
         })
             .then((response) => {
                 let ar = response.data;
+                console.log(ar)
                 if (ar.status != "failed") {
                     setMyAllOrder(ar.result);
                 }
                 else {
-                    notification.msg("আপনি এখনো কোনো প্যাকেজ ক্রয় করেননি।", "blue", "4000")
+                    notification.msg("You didn't buy any products", "blue", "4000")
                 }
                 setLoading(false)
             }, (error) => {
@@ -43,17 +44,17 @@ export default function MyOrder() {
                 _id={MyAllOrder[i]._id}
                 customer_name={MyAllOrder[i].customer_name}
                 phone={MyAllOrder[i].phone}
-                diamond={MyAllOrder[i].diamond}
+                title={MyAllOrder[i].title}
                 price={MyAllOrder[i].price}
-                topUp_type={MyAllOrder[i].topUp_type}
+                totalPay={MyAllOrder[i].totalPay}
+                category={MyAllOrder[i].category}
                 discount={MyAllOrder[i].discount}
-                playerID={MyAllOrder[i].playerID}
-                gameLoginID={MyAllOrder[i].gameLoginID}
-                gameLoginPassword={MyAllOrder[i].gameLoginPassword}
                 paymentMethod={MyAllOrder[i].paymentMethod}
-                paymentSenderNumber={MyAllOrder[i].paymentSenderNumber}
+                paymentSenderTnxNumber={MyAllOrder[i].transactionID}
                 timeDate={MyAllOrder[i].timeDate}
                 orderStatus={MyAllOrder[i].orderStatus}
+                quantity={MyAllOrder[i].quantity}
+                shippingAddress={MyAllOrder[i].shippingAddress}
             />
         )
     }
@@ -68,7 +69,7 @@ export default function MyOrder() {
             <div align="center" style={{ paddingBottom: '30vh' }}>
                 <br /><br /><br />
                 <CircularProgress /><br />
-                অপেক্ষা করুন
+                Please Wait
             </div>
         )
     }
@@ -76,7 +77,7 @@ export default function MyOrder() {
     if (!found) {
         return (
             <div className='my_order_card'>
-                <h1 align='center'>কোনো অর্ডার নেই</h1>
+                <h1 align='center'>No order found</h1>
             </div>
         )
     }
@@ -84,7 +85,7 @@ export default function MyOrder() {
     return (
         <>
             <center>
-                <b>মোট অর্ডার: {en2bn.number(orderCard.length)} টি</b>
+                <b>Total Order: {orderCard.length}</b>
                 <hr />
             </center>
             {orderCard}

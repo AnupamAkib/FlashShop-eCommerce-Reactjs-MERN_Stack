@@ -13,12 +13,19 @@ export default function EnterLogin(props) {
     const nameSetHandleChange = (e) => {
         _name = e.target.value;
     }
-    const idCodeSetSubmit = () => {
-        setPhone(idc);
-        setName(_name);
-        localStorage.setItem("phone", idc);
-        localStorage.setItem("name", _name);
-        window.location.reload()
+    const idCodeSetSubmit = (e) => {
+        e.preventDefault();
+        if(idc.length < 11){    
+            let toast = require('./methods.js');
+            toast.msg("Invalid Phone Number", "red", 2500);
+        }
+        else{
+            setPhone(idc);
+            setName(_name);
+            localStorage.setItem("phone", idc);
+            localStorage.setItem("name", _name);
+            window.location.reload();
+        }
     }
     return (
         <div className="container col-4 enter_id_code" align='center'>
@@ -28,8 +35,8 @@ export default function EnterLogin(props) {
 
                 <input onChange={nameSetHandleChange} type='text' placeholder='Enter Your Name' className='inputField' style={{ width: '250px' }} required /><br />
                 <input onChange={idCodeSetHandleChange} type='number' placeholder='Enter Your Phone Number' className='inputField' style={{ width: '250px' }} required /><br />
-                <Button type='submit' color="primary" variant="contained">
-                    <font style={{ padding: '0px 60px 0px 60px', fontSize: 'large' }}>
+                <Button type='submit' color="primary" variant="contained" style={{ width: '250px'}}>
+                    <font style={{ padding: '5px'}}>
                         Continue to Order
                     </font>
                 </Button>

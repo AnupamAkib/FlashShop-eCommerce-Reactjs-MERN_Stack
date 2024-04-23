@@ -9,10 +9,10 @@ export default function Header() {
 
     const user_logout = () => {
         localStorage.setItem("name", "");
-        localStorage.setItem("id_code", "");
+        localStorage.setItem("phone", "");
         setLoginID(false);
         navigate('/')
-        notification.msg("লগ আউট সফল হয়েছে", "green", 2500);
+        notification.msg("You are logged out!", "green", 2500);
     }
     return (
         <>
@@ -28,20 +28,20 @@ export default function Header() {
                         <ul className="navbar-nav">
                             <li style={{ paddingRight: '30px' }} className="nav-item">
 
-                                <Link className="nav-link" to="/myOrder"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">আমার অর্ডার</font></Link>
+                                <Link className="nav-link" to="/myOrder"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">My Orders</font></Link>
 
                             </li>
                             <li style={{ paddingRight: '30px' }} className="nav-item">
-                                <Link className="nav-link" to="/contact"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">যোগাযোগ করুন</font></Link>
+                                <Link className="nav-link" to="/contact"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Contacts</font></Link>
                             </li>
                             <li style={{ paddingRight: '30px' }} className="nav-item">
-                                <Link className="nav-link" to="/conditions"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">শর্তাবলী</font></Link>
+                                <Link className="nav-link" to="/conditions"><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Terms & Conditions</font></Link>
                             </li>
                             {LoginID ? <li className="nav-item dropdown" style={{ paddingRight: '30px' }}>
                                 <a className="nav-link dropdown-toggle firstLetterUpper" href="#" role="button" data-bs-toggle="dropdown">{localStorage.getItem("name")}</a>
                                 <ul className="dropdown-menu">
-                                    <li className="dropdown-item" >ID Code: <b>{localStorage.getItem("id_code")}</b></li>
-                                    <li><a className="dropdown-item" onClick={user_logout}><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">লগ আউট</font></a></li>
+                                    <li className="dropdown-item" >Phone: <b>{localStorage.getItem("phone")}</b></li>
+                                    <li><a className="dropdown-item" onClick={user_logout}><font data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show">Log Out</font></a></li>
                                 </ul>
                             </li> : ""}
 

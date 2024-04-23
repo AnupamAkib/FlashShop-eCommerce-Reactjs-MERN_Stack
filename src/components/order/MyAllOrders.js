@@ -5,21 +5,21 @@ import { useState } from 'react';
 import Title from '../title.js'
 
 export default function MyAllOrders() {
-    const [IDCode, setIDCode] = useState(localStorage.getItem("id_code"));
+    const [IDCode, setIDCode] = useState(localStorage.getItem("phone"));
 
     if (!IDCode || IDCode == '') {
         return (
-            <EnterLogin quotes="আপনার অর্ডার দেখতে আপনার নাম ও গেমের ID Code টি লিখে 'CONTINUE' বাটনে টাচ/ক্লিক করুন।" />
+            <EnterLogin quotes="Please provide your login information & click on 'Submit' view your orders." />
         )
     }
     else {
         return (
             <div>
                 <center>
-                    <Title title="আমার অর্ডার" />
-                    <font size='5'>আইডি কোডঃ {localStorage.getItem("id_code")}</font>
+                    <Title title="My Orders" />
+                    <font size='5'>Phone Number: {localStorage.getItem("phone")}</font>
                     <br />
-                    (পরিবর্তন করতে উপরের মেনুবার থেকে লগ আউট করে নতুন আইডি কোড দিয়ে পুনরায় লগ-ইন করুন)
+                    (If you want to change account then log out from the system & relogin )
                 </center>
                 <br />
                 <div className='container col-6'>

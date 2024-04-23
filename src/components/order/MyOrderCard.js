@@ -7,16 +7,17 @@ export default function MyOrderCard(props) {
     let id = props._id;
     let customer_name = props.customer_name;
     let phone = props.phone;
-    let diamond = props.diamond;
+    let title = props.title;
     let price = props.price;
-    let topUp_type = props.topUp_type;
+    let category = props.category;
     let discount = props.discount;
-    let playerID = props.playerID;
-    let gameLoginID = props.gameLoginID;
-    let gameLoginPassword = props.gameLoginPassword;
     let paymentMethod = props.paymentMethod;
-    let paymentSenderNumber = props.paymentSenderNumber;
+    let paymentSenderTnxNumber = props.paymentSenderTnxNumber;
     let timeDate = props.timeDate;
+    let totalPay = props.totalPay;
+    let quantity = props.quantity;
+    let shippingAddress = props.shippingAddress;
+
     const [orderStatus, setOrderStatus] = useState(props.orderStatus)
 
     let en2Bn = require('../methods.js')
@@ -63,20 +64,6 @@ export default function MyOrderCard(props) {
         //console.log("cancelled")
     }
 
-    function isLetter(c) {
-        c = String(c);
-        //console.log(c)
-        return c.toLowerCase() != c.toUpperCase();
-    }
-
-    let packageName = "";
-    if (isLetter(diamond)) {
-        packageName = diamond;
-    }
-    else {
-        packageName = en2Bn.number(diamond) + " ডায়ামন্ড"
-    }
-
 
     return (
         <div className='my_order_card'>
@@ -92,29 +79,32 @@ export default function MyOrderCard(props) {
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-diamond'></i></td>
-                    <td><font color='darkblue'><b>{packageName}</b></font></td>
+                    <td><font color='darkblue'><b>{title}</b></font></td>
                 </tr>
                 <tr>
                     <td align='center'><b>৳</b></td>
-                    <td colSpan={2}><font color='darkgreen' style={{ fontWeight: 'bold' }}>{en2Bn.number(price)} টাকা </font>{discount == "0" ? "" : <font color='gray'>({en2Bn.number(discount)} টাকা ছাঁড়ে)</font>}</td>
+                    <td colSpan={2}><font color='darkgreen' style={{ fontWeight: 'bold' }}>{totalPay} BDT</font>{discount == "0" ? "" : <font color='gray' size="2"> Discount Added</font>}</td>
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-gear'></i></td>
-                    <td colSpan={2}>{topUp_type}</td>
+                    <td colSpan={2}>{category}</td>
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-credit-card'></i></td>
-                    <td colSpan={2}>{paymentSenderNumber} (My {paymentMethod})</td>
+                    <td colSpan={2}>{paymentSenderTnxNumber} ({paymentMethod})</td>
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-clock-o'></i></td>
                     <td colSpan={2}>{timeDate}</td>
                 </tr>
-
             </table>
+
+            <b>Quantity:</b> {quantity} <br/>
+            <b>Shipping Address:</b> {shippingAddress} <hr/>
+
             {orderStatus == "PENDING" ?
                 <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>
-                    অর্ডার বাতিল করি
+                    Cancel Order
                 </Button> : ""}
         </div >
     )

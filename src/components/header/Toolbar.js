@@ -145,24 +145,24 @@ class ToolbarComponent extends React.Component {
             >
                 <Link to='/myOrder'>
                     <MenuItem>
-                        আমার অর্ডার
+                        My Orders
                     </MenuItem>
                 </Link>
                 <Link to='/contact'>
                     <MenuItem>
-                        যোগাযোগ করুন
+                        Contacts
                     </MenuItem>
                 </Link>
                 <Link to='/conditions'>
                     <MenuItem>
-                        শর্তাবলী
+                        Terms & Conditions
                     </MenuItem>
                 </Link>
                 {
                     localStorage.getItem("id_code") ?
                         <Link to='/conditions'>
                             <MenuItem>
-                                শর্তাবলী
+                            Terms & Conditions
                             </MenuItem>
                         </Link> : ""
                 }
