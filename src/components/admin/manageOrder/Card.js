@@ -14,27 +14,23 @@ export default function MyOrderCard(props) {
     let id = props._id;
     let customer_name = props.customer_name;
     let phone = props.phone;
-    let diamond = props.diamond;
+    let title = props.title;
     let price = props.price;
-    let topUp_type = props.topUp_type;
+    let category = props.category;
     let discount = props.discount;
-    let playerID = props.playerID;
-    let gameLoginID = props.gameLoginID;
-    let gameLoginPassword = props.gameLoginPassword;
     let paymentMethod = props.paymentMethod;
-    let paymentSenderNumber = props.paymentSenderNumber;
+    let paymentSenderTnxNumber = props.paymentSenderTnxNumber;
     let timeDate = props.timeDate;
+    let quantity = props.quantity;
+    let shippingAddress = props.shippingAddress;
+
+    let totalPay = (quantity*(price - discount));
 
     const [orderStatus, setOrderStatus] = useState(props.orderStatus)
     const [opct, setOpct] = useState(1)
     const [btnDisabled, setbtnDisabled] = useState(false);
     const [showhide, setshowhide] = useState("Show")
 
-    let st = "";
-    for (let i = 0; i < gameLoginPassword.length; i++) {
-        st += "*";
-    }
-    const [gameLoginPassword_processed, setgameLoginPassword_processed] = useState(st)
 
     const changeThisOrderStatus = (e) => {
         let _status = e.target.value;
@@ -87,16 +83,6 @@ export default function MyOrderCard(props) {
 
     let notification = require('../../methods.js')
 
-    const passwordProcess = () => {
-        if (showhide == "Show") {
-            setshowhide("Hide");
-            setgameLoginPassword_processed(gameLoginPassword);
-        }
-        else {
-            setshowhide("Show");
-            setgameLoginPassword_processed(st);
-        }
-    }
 
     const deleteThisOrder = () => {
         confirm({ description: `This order's information will be deleted permanently` })
@@ -138,43 +124,35 @@ export default function MyOrderCard(props) {
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-diamond'></i></td>
-                    <td><font color='darkblue'><b>{diamond} {isLetter(diamond) ? "" : "Diamonds"}</b></font></td>
+                    <td><font color='darkblue'><b>{title}</b></font></td>
                 </tr>
                 <tr>
                     <td align='center'><b>৳</b></td>
-                    <td colSpan={2}><font color='darkgreen' style={{ fontWeight: 'bold' }}>{price} BDT </font>{discount == "0" ? "" : <font color='gray'>(With {discount} Tk Off)</font>}</td>
+                    <td colSpan={2}><font color='darkgreen' style={{ fontWeight: 'bold' }}>{totalPay} BDT</font>{discount == "0" ? "" : <font color='gray' size="2"> Discount Added</font>}</td>
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-gear'></i></td>
-                    <td colSpan={2}>{topUp_type}</td>
+                    <td colSpan={2}>{category}</td>
                 </tr>
-
-                <tr style={{ background: '#c9c9ff' }}>
-                    <td align='center'><i className='fa fa-key'></i></td>
-                    <td colSpan={2}>PlayerID: {playerID}</td>
-                </tr>
-
-                <tr style={{ background: '#ddffc9' }}>
-                    <td align='center'><i className='fa fa-sign-in'></i></td>
-                    <td colSpan={2}>Login: {gameLoginID == "" ? "Not given" : gameLoginID}</td>
-                </tr>
-
-                <tr style={{ background: '#ffc9c9' }}>
-                    <td align='center'><i className='fa fa-lock'></i></td>
-                    <td colSpan={2}>Password: {gameLoginPassword == "" ? "Not given" : <font>{gameLoginPassword_processed} <button onClick={passwordProcess} style={{ border: '0px', background: 'transparent' }}>{showhide == "Show" ? <i className='fa fa-eye-slash'></i> : <i className='fa fa-eye'></i>}</button></font>}</td>
-                </tr>
-
-                <tr style={{ background: '#b5ffd5' }}>
+                <tr>
                     <td align='center'><i className='fa fa-credit-card'></i></td>
-                    <td colSpan={2}>{paymentMethod}: {paymentSenderNumber}</td>
+                    <td colSpan={2}>{paymentSenderTnxNumber} ({paymentMethod})</td>
                 </tr>
                 <tr>
                     <td align='center'><i className='fa fa-clock-o'></i></td>
                     <td colSpan={2}>{timeDate}</td>
                 </tr>
             </table>
+
+            <b>Quantity:</b> {quantity} <br/>
+            <b>Unit Price:</b> {price} <br/>
+            <b>Total Discount:</b> {quantity*discount} <br/>
+            <b>Shipping Address:</b> {shippingAddress}
+            
+
             {opct == 1 ?
                 <center>
+                    <hr/>
                     <FormControl variant='filled'>
                         <InputLabel id="demo-simple-select-helper-label">Status</InputLabel>
                         <Select

@@ -14,9 +14,10 @@ export default function MyOrderCard(props) {
     let paymentMethod = props.paymentMethod;
     let paymentSenderTnxNumber = props.paymentSenderTnxNumber;
     let timeDate = props.timeDate;
-    let totalPay = props.totalPay;
     let quantity = props.quantity;
     let shippingAddress = props.shippingAddress;
+
+    let totalPay = (quantity*(price - discount));
 
     const [orderStatus, setOrderStatus] = useState(props.orderStatus)
 
@@ -100,7 +101,10 @@ export default function MyOrderCard(props) {
             </table>
 
             <b>Quantity:</b> {quantity} <br/>
-            <b>Shipping Address:</b> {shippingAddress} <hr/>
+            <b>Unit Price:</b> {price} <br/>
+            <b>Total Discount:</b> {quantity*discount} <br/>
+            <b>Shipping Address:</b> {shippingAddress}
+            <hr/>
 
             {orderStatus == "PENDING" ?
                 <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>

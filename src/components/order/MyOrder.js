@@ -46,7 +46,6 @@ export default function MyOrder() {
                 phone={MyAllOrder[i].phone}
                 title={MyAllOrder[i].title}
                 price={MyAllOrder[i].price}
-                totalPay={MyAllOrder[i].totalPay}
                 category={MyAllOrder[i].category}
                 discount={MyAllOrder[i].discount}
                 paymentMethod={MyAllOrder[i].paymentMethod}

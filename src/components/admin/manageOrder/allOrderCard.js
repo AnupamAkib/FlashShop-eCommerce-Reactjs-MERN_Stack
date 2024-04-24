@@ -25,6 +25,7 @@ export default function AllOrderCard(props) {
             .then((response) => {
                 setAllOrder(response.data.result)
                 setLoading(false);
+                console.log(response.data.result)
             }, (error) => {
                 console.log(error);
             });
@@ -37,17 +38,16 @@ export default function AllOrderCard(props) {
                 _id={allOrder[i]._id}
                 customer_name={allOrder[i].customer_name}
                 phone={allOrder[i].phone}
-                diamond={allOrder[i].diamond}
+                title={allOrder[i].title}
                 price={allOrder[i].price}
-                topUp_type={allOrder[i].topUp_type}
+                category={allOrder[i].category}
                 discount={allOrder[i].discount}
-                playerID={allOrder[i].playerID}
-                gameLoginID={allOrder[i].gameLoginID}
-                gameLoginPassword={allOrder[i].gameLoginPassword}
                 paymentMethod={allOrder[i].paymentMethod}
-                paymentSenderNumber={allOrder[i].paymentSenderNumber}
+                paymentSenderTnxNumber={allOrder[i].transactionID}
                 timeDate={allOrder[i].timeDate}
                 orderStatus={allOrder[i].orderStatus}
+                quantity={allOrder[i].quantity}
+                shippingAddress={allOrder[i].shippingAddress}
             /></ConfirmProvider>)
         }
     }

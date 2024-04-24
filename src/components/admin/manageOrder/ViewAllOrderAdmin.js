@@ -13,7 +13,7 @@ import Title from '../../title';
 
 export default function ViewAllOrderAdmin() {
     const navigate = useNavigate();
-    const [searchStatus, setsearchStatus] = useState(localStorage.getItem("searchedStatus") ? localStorage.getItem("searchedStatus") : "PENDING")
+    const [searchStatus, setsearchStatus] = useState(localStorage.getItem("searchedStatus") ? localStorage.getItem("searchedStatus") : "ALL")
 
     let notification = require('../.././methods.js')
 
