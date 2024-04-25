@@ -68,7 +68,11 @@ export default function MyOrderCard(props) {
         status_color = "darkgoldenrod";
         status_icon = "fa fa-refresh fa-spin";
     }
-    else if (orderStatus == "RECEIVED") {
+    else if (orderStatus == "SHIPPED") {
+        status_color = "purple";
+        status_icon = "fa fa-bicycle";
+    }
+    else if (orderStatus == "DELIVERED") {
         status_color = "green";
         status_icon = "fa fa-check";
     }
@@ -162,7 +166,8 @@ export default function MyOrderCard(props) {
                             disabled={btnDisabled}
                         >
                             <MenuItem value="PENDING">Pending</MenuItem>
-                            <MenuItem value="RECEIVED">Received</MenuItem>
+                            <MenuItem value="SHIPPED">Shipped</MenuItem>
+                            <MenuItem value="DELIVERED">Delivered</MenuItem>
                             <MenuItem value="REJECTED">Rejected</MenuItem>
                             <MenuItem value="CANCELLED">Cancelled</MenuItem>
                         </Select>

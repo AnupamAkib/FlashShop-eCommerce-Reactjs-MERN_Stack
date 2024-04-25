@@ -25,7 +25,11 @@ export default function Dashboard() {
     const [totalLifeTimeOrder, settotalLifeTimeOrder] = useState(0);
     const [totalLifeTimeSell, settotalLifeTimeSell] = useState(0);
     const [sellPending, setsellPending] = useState(0);
-    const [successfulOrderCnt, setsuccessfulOrderCnt] = useState(0)
+    const [successfulOrderCnt, setsuccessfulOrderCnt] = useState(0);
+
+    const [sellOnTransit, setSellOnTransit] = useState(0);
+    const [allProductCount, setAllProductCount] = useState(0);
+
     const [loading, setloading] = useState(true)
     useEffect(() => {
         axios.get(process.env.REACT_APP_BACKEND+'dashboard/all')
@@ -34,6 +38,8 @@ export default function Dashboard() {
                 settotalLifeTimeSell(response.data.result.totalSell);
                 setsellPending(response.data.result.sellPending);
                 setsuccessfulOrderCnt(response.data.result.successfulOrderCount);
+                setSellOnTransit(response.data.result.sellOnTransit);
+                setAllProductCount(response.data.result.allProductCount);
                 setloading(false);
             }, (error) => {
                 notification.msg("Sorry, something wrong", "red", 4000);
@@ -67,12 +73,17 @@ export default function Dashboard() {
 
                 <center>
                     <div className='container'>
-                        <DB_Card name='Life Time Order' number={totalLifeTimeOrder} />
-                        <DB_Card name='Life Time Sell' number={"৳ " + totalLifeTimeSell} />
+                        <DB_Card name='Total Orders' number={totalLifeTimeOrder} />
+                        <DB_Card name='Successful Order' number={successfulOrderCnt} />
+                        
                     </div>
                     <div className='container'>
+                    <DB_Card name='Total Sold' number={"৳ " + totalLifeTimeSell} />
                         <DB_Card name='Sell Pending' number={"৳ " + sellPending} />
-                        <DB_Card name='Successful Order' number={successfulOrderCnt} />
+                    </div>
+                    <div className='container'>
+                        <DB_Card name='Sell on Transit' number={"৳ " + sellOnTransit} />
+                        <DB_Card name='Total Products' number={allProductCount} />
                     </div>
 
                     <div style={{ clear: 'both' }} className='container'><br />

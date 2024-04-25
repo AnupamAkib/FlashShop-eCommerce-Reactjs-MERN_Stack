@@ -14,7 +14,7 @@ export default function AboutSite() {
                     <b>Project Name: </b> FlashShop <br />
                     <b>Description: </b> E-Commerce <br />
                     <b>Project Type: </b> Web Application <br />
-                    <b>Project Author: </b> Mir Anupam Hossain Akib <br />
+                    <b>Project Author: </b> --- <br />
                     <br />
                     <b>Technology Used: </b><br />
 
@@ -39,7 +39,7 @@ export default function AboutSite() {
                     </div>
 
                     <br /><br />
-                    <b><u>Project Duration: </u></b>
+                    {/*}<b><u>Project Duration: </u></b>
                     <center>
                         <table width='100%'>
                             <tr align='center'>
@@ -48,7 +48,7 @@ export default function AboutSite() {
                             </tr>
                         </table>
                     </center>
-                    <hr />
+    <hr />{*/}
                     Initial Prototype:<br />
                     <button className='btn btn-primary'><i class="fa fa-download"></i> Download</button>
                     <hr />

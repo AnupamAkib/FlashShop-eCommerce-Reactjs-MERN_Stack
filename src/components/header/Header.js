@@ -1,11 +1,27 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 
 export default function Header() {
     const navigate = useNavigate();
     let notification = require('../methods.js');
     const [LoginID, setLoginID] = useState(localStorage.getItem("name"));
+
+    function pingMe() {
+        axios.get(process.env.REACT_APP_BACKEND, {
+            //parameters
+        })
+            .then((response) => {
+                console.log("ping pong");
+            }, (error) => {
+                notification.msg("Sorry, something went wrong", "red", 2500);
+            });
+    }
+
+    useEffect(()=>{
+        setInterval(pingMe, 10000);
+    }, []);
 
     const user_logout = () => {
         localStorage.setItem("name", "");

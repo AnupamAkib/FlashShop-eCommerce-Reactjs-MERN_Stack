@@ -53,7 +53,8 @@ export default function ViewAllOrderAdmin() {
                             >
                                 <MenuItem value="ALL">ALL</MenuItem>
                                 <MenuItem value="PENDING">PENDING </MenuItem>
-                                <MenuItem value="RECEIVED">RECEIVED </MenuItem>
+                                <MenuItem value="SHIPPED">SHIPPED </MenuItem>
+                                <MenuItem value="DELIVERED">DELIVERED </MenuItem>
                                 <MenuItem value="REJECTED">REJECTED </MenuItem>
                                 <MenuItem value="CANCELLED">CANCELLED </MenuItem>
                             </Select>

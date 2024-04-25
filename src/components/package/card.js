@@ -3,6 +3,7 @@ import './style.css'
 import { Button } from '@material-ui/core';
 import { Link } from "react-router-dom"
 import { useNavigate } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function Card(props) {
     const navigate = useNavigate();
@@ -27,15 +28,31 @@ export default function Card(props) {
         desc += description[i];
     }
 
+    const trimText = (text, len) =>{
+        let s = "";
+        for(let i=0; i<text.length; i++){
+            if(i>len){
+                s += "...";
+                break;
+            }
+            s += text[i];
+        }
+        return s;
+    }
 
     return (
-        <div className={classN}>
-            <h2>{title}</h2><hr/>
+        <div className={classN} style={{maxHeight:"350px"}}>
+            <div style={{background:"", height:"57px"}}>
+                <Tooltip title={title}>
+                    <h2><b>{trimText(title, 41)}</b></h2>
+                </Tooltip>
+            </div>
+            <hr/>
             <table width="100%" border='0' cellPadding={4} style={{ marginBottom: '8px' }}>
                 <tbody>
                     <tr>
-                        <td align='center' width='10px'><i className="fa fa-diamond"></i></td>
-                        <td>{category}</td>
+                        <td align='center' width='7px'><i className="fa fa-diamond"></i></td>
+                        <td><font size="4">{category}</font></td>
                         <td rowSpan={2} align='right'>
                             {
                                 discount>0 ?
@@ -51,7 +68,8 @@ export default function Card(props) {
                     </tr>
                 </tbody>
             </table>
-            <b>Description: </b>{desc} <br/>
+            <textarea type="text" style={{width:"100%", height:"80px", background:"transparent", border:"none", fontSize:"17px", resize: "none", outline:"none"}} readOnly>{"Description: "+ description}</textarea>
+            
             <div style={{ textAlign: 'right' }} >
                 <Button
                     onClick={() => { navigate(orderLink) }}

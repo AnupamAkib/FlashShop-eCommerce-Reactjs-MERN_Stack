@@ -91,8 +91,6 @@ export default function Settings() {
                         <TextField value={fixed_notification} onChange={(e) => { setfixed_notification(e.target.value) }} variant='filled' label='Fixed Notification' rows={2} type='text' fullWidth multiline />
                         <TextField value={popUp_notification} onChange={(e) => { setpopUp_notification(e.target.value) }} variant='filled' label='Pop Up Notification' rows={2} type='text' fullWidth multiline />
                         <TextField value={conditions} onChange={(e) => { setconditions(e.target.value) }} variant='filled' label='Rules & Conditions' rows={3} type='text' fullWidth multiline required />
-                        <TextField value={usd_idcode} onChange={(e) => { setusd_idcode(e.target.value) }} variant='filled' label='ID Code BDT Unit/100 Diamonds' type='number' fullWidth required />
-                        <TextField value={usd_idpassword} onChange={(e) => { setusd_idpassword(e.target.value) }} variant='filled' label='ID Password BDT Unit/100 Diamonds' type='number' fullWidth required />
                         <FormControlLabel control={<Switch checked={newOrder} onClick={() => { let f = newOrder; setnewOrder(!f) }} />} label="Take New Order" />
                         <br />
                         <Button type='submit' variant='contained' size='large' disabled={disabledFlag} fullWidth>{disabledFlag ? "Please wait" : "save settings"}</Button>

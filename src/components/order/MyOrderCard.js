@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@material-ui/core';
 import axios from 'axios';
 import { useState } from 'react';
+import generatePDF from './PDFGenerator';
 
 export default function MyOrderCard(props) {
     let id = props._id;
@@ -29,7 +30,11 @@ export default function MyOrderCard(props) {
         status_color = "darkgoldenrod";
         status_icon = "fa fa-refresh fa-spin";
     }
-    else if (orderStatus == "RECEIVED") {
+    else if (orderStatus == "SHIPPED") {
+        status_color = "purple";
+        status_icon = "fa fa-bicycle";
+    }
+    else if (orderStatus == "DELIVERED") {
         status_color = "green";
         status_icon = "fa fa-check";
     }
@@ -65,7 +70,73 @@ export default function MyOrderCard(props) {
         //console.log("cancelled")
     }
 
+    const htmlContent = `
+    <html>
+    <head>
+    </head>
+    <body>
+        <div>
+            <center>
+                <br/>
+                <h1><b><font color="red">FLASH</font>shop</b></h1>
+                <hr/><h3>Customer Receipt</h3><hr/>
 
+                <b>Customer Name: </b> ${customer_name}<br/>
+                <b>Phone: </b> ${phone}<br/>
+                <b>Shipping Address: </b> ${shippingAddress}<br/>
+                <br/>
+                <table width="100%">
+                    <tr>
+                        <td><center><b>Date: </b>${timeDate}</center></td>
+                    </tr>
+                </table>
+                <br/>
+                <font size="5">
+                    <table border="1" width="100%" cellpadding="15" class="table table-bordered">
+                        <tr>
+                            <th>Sl.No</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Discount</th>
+                            <th>Amount</th>
+                        </tr>
+
+                        <tr height="300px">
+                            <td>1</td>
+                            <td>${title}</td>
+                            <td>${quantity}</td>
+                            <td>${price}/-</td>
+                            <td>${discount}/-</td>
+                            <td>${(price-discount)*quantity}/-</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <font size="3"><b>Payment Mathod:</b></font> <img src="/images/${paymentMethod}.png" width="90px"/><br/>
+                                <font size="3"><b>Transaction ID:</b></font> ${paymentSenderTnxNumber}
+                            </td>
+                            <td colspan="4"><div align="right">
+                                <font size="5">
+                                    G. Total: <b>${(price-discount)*quantity} Taka</b><br/>
+                                    Paid: <b>${(price-discount)*quantity} Taka</b><br/>
+                                </font></div></td>
+                        </tr>
+                    </table>
+                </font>
+                This is an system generated customer receipt. No signature is required.<br/>
+                Thanks for shopping from our site.
+            </center>
+        </div>
+    </body>
+    </html>
+    `;
+
+    const handleGeneratePDF = () => {
+        generatePDF(htmlContent);
+    };
+
+ 
+   
     return (
         <div className='my_order_card'>
             <table border='0' width='100%'>
@@ -104,12 +175,22 @@ export default function MyOrderCard(props) {
             <b>Unit Price:</b> {price} <br/>
             <b>Total Discount:</b> {quantity*discount} <br/>
             <b>Shipping Address:</b> {shippingAddress}
-            <hr/>
+            
 
             {orderStatus == "PENDING" ?
-                <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>
-                    Cancel Order
-                </Button> : ""}
+                <>
+                    <hr/>
+                    <Button onClick={cancelOrder} style={{ backgroundColor: btnDisabled == 'true' ? "gray" : "#d40000", color: 'white', fontSize: '15px' }} variant="contained" disabled={btnDisabled}>
+                        Cancel Order
+                    </Button>
+                </> : orderStatus=="DELIVERED"?
+
+                <>
+                    <hr/>
+                    <button onClick={handleGeneratePDF}>Download receipt</button>
+                </> 
+
+                : ""}
         </div >
     )
 }

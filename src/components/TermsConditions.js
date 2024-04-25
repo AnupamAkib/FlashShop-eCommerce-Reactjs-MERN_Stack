@@ -24,10 +24,10 @@ export default function TermsConditions() {
 
     return (
         <>
-            <Title title="নিয়ম ও শর্তাবলী" />
+            <Title title="Terms & Conditions" />
             {loading ?
                 <div className='hovered_loading'>
-                    <CircularProgress /><br />অপেক্ষা করুন
+                    <CircularProgress /><br />Please Wait
                 </div>
                 : ""}
             <div className='container col-6'>

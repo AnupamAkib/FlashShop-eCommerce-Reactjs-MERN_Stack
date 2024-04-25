@@ -209,7 +209,7 @@ export default function CreateOrder() {
                 
                             <div className="container" style={{padding:"12px"}}>
                                 <font style={{ fontSize: '25px', fontWeight: 'bold' }}>{title}</font><br />
-                                <font style={{ fontSize: '22px' }}>{discount>0? <font size="4"><s>{price} BDT </s></font> : ""} {price-discount} BDT</font>
+                                <font style={{ fontSize: '22px' }}>{discount>0? <font size="4"><s>{price} BDT</s></font> : ""} <font size="5">৳ </font>{price-discount} BDT</font>
                             </div>
             </div>
 
