@@ -73,6 +73,15 @@ export default function MyOrderCard(props) {
     const htmlContent = `
     <html>
     <head>
+        <style>
+            body {
+                background-image: url('/public/images/seal.png');
+                background-size:150px;
+                background-repeat: no-repeat;
+                background-attachment: relative;
+                background-position: center;
+            }
+        </style>
     </head>
     <body>
         <div>
@@ -81,7 +90,7 @@ export default function MyOrderCard(props) {
                 <h1><b><font color="red">FLASH</font>shop</b></h1>
                 <hr/><h3>Customer Receipt</h3><hr/>
 
-                <b>Customer Name: </b> ${customer_name}<br/>
+                <h4><b>Customer Name: </b> ${customer_name}</h4>
                 <b>Phone: </b> ${phone}<br/>
                 <b>Shipping Address: </b> ${shippingAddress}<br/>
                 <br/>
@@ -99,16 +108,16 @@ export default function MyOrderCard(props) {
                             <th>Quantity</th>
                             <th>Rate</th>
                             <th>Discount</th>
-                            <th>Amount</th>
+                            <th>Total</th>
                         </tr>
 
-                        <tr height="300px">
-                            <td>1</td>
+                        <tr height="450px">
+                            <td><center>1</center></td>
                             <td>${title}</td>
-                            <td>${quantity}</td>
-                            <td>${price}/-</td>
-                            <td>${discount}/-</td>
-                            <td>${(price-discount)*quantity}/-</td>
+                            <td><center>${quantity}</center></td>
+                            <td><center>${price}/-</center></td>
+                            <td><center>${discount}/-</center></td>
+                            <td><center>${(price-discount)*quantity}/-</center></td>
                         </tr>
                         <tr>
                             <td colspan="2">
@@ -119,11 +128,12 @@ export default function MyOrderCard(props) {
                                 <font size="5">
                                     G. Total: <b>${(price-discount)*quantity} Taka</b><br/>
                                     Paid: <b>${(price-discount)*quantity} Taka</b><br/>
+                                    Due: <b>${0} Taka</b><br/>
                                 </font></div></td>
                         </tr>
                     </table>
                 </font>
-                This is an system generated customer receipt. No signature is required.<br/>
+                This is a system generated customer receipt. No signature is required.<br/>
                 Thanks for shopping from our site.
             </center>
         </div>
@@ -135,7 +145,6 @@ export default function MyOrderCard(props) {
         generatePDF(htmlContent);
     };
 
- 
    
     return (
         <div className='my_order_card'>
